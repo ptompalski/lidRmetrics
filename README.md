@@ -1,2 +1,3 @@
 # lidRmetrics
-Additional point cloud metrics to use with *_metric functions in lidR
+Additional point cloud metrics to use with *_metric functions in lidR.
+Currently under development.

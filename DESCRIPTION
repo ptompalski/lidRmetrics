@@ -1,0 +1,17 @@
+Package: lidRmetrics
+Title: Suplemetary point cloud metrics.
+Version: 0.0.1
+Authors@R: person("Piotr", "Tompalski", email = "piotr.tompalski@gmail.com", role = c("aut", "cre"))
+Description: Several pre-defined sets of point cloud metrics to use with the lidR package *_metric functions.
+Depends: R (>= 3.5.1)
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    lidR,
+    dplyr,
+    tidyr,
+    magrittr
+Suggests:
+    Lmoments
+RoxygenNote: 7.1.1

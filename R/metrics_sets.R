@@ -2,15 +2,20 @@
 #' 
 #' Pre-defined sets of point cloud metrics composed of different metrics_* functions available in the package. 
 #' 
-#' @param z Z coordinate of the point cloud
+#' 
+#' 
+#' @param x,y,z X, Y, Z coordinates of the point cloud
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
 #' @param threshold Threshold height(s). See \link[=metrics_percabove]{metrics_percabove}.
 #' @param dz layer thickness to use when calculating entropy and VCI.
 #' @param interval_count Number of intervals used to divide the point height distribution. See \link[=metrics_canopydensity]{metrics_canopydensity}.
 #' @param zintervals Height intervals. See \link[=metrics_interval]{metrics_interval}.
+#' @param pixel_size pixel size for calculating rumple index
+#' @param vox_size voxel size for calculating voxel metrics
+
+
+#' @rdname metrics_sets
 #' @export
-
-
 metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10, zintervals=c(0, 0.15, 2, 5, 10, 20, 30)) {
   
   m_basic   <- metrics_basic(z=z, zmin=zmin)
@@ -28,5 +33,25 @@ metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10
   
 }
 
+#' @rdname metrics_sets
+#' @export
+metrics_set2  <- function(x, y, z, 
+                          zmin=NA, 
+                          threshold = c(2,5), 
+                          dz=1, 
+                          interval_count=10, 
+                          zintervals=c(0, 0.15, 2, 5, 10, 20, 30),
+                          pixel_size=1,
+                          vox_size=1) {
+  
+  m_set1    <- metrics_set1(z = z, zmin = zmin, threshold = threshold, dz = dz, interval_count = interval_count, zintervals = zintervals)
+  m_rumple  <- metrics_rumple(x = x, y = y, z = z, pixel_size = pixel_size)
+  m_vox     <- metrics_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
+  
+  m <- c(m_set1, m_rumple, m_vox)
+  
+  return(m)
+  
+}
 
 

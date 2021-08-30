@@ -2,6 +2,7 @@
 % Please edit documentation in R/metrics_sets.R
 \name{metrics_set1}
 \alias{metrics_set1}
+\alias{metrics_set2}
 \title{Pre-defined sets of metrics}
 \usage{
 metrics_set1(
@@ -12,10 +13,21 @@ metrics_set1(
   interval_count = 10,
   zintervals = c(0, 0.15, 2, 5, 10, 20, 30)
 )
+
+metrics_set2(
+  x,
+  y,
+  z,
+  zmin = NA,
+  threshold = c(2, 5),
+  dz = 1,
+  interval_count = 10,
+  zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
+  pixel_size = 1,
+  vox_size = 1
+)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
-
 \item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
 
 \item{threshold}{Threshold height(s). See \link[=metrics_percabove]{metrics_percabove}.}
@@ -25,6 +37,12 @@ metrics_set1(
 \item{interval_count}{Number of intervals used to divide the point height distribution. See \link[=metrics_canopydensity]{metrics_canopydensity}.}
 
 \item{zintervals}{Height intervals. See \link[=metrics_interval]{metrics_interval}.}
+
+\item{x, y, z}{X, Y, Z coordinates of the point cloud}
+
+\item{pixel_size}{pixel size for calculating rumple index}
+
+\item{vox_size}{voxel size for calculating voxel metrics}
 }
 \description{
 Pre-defined sets of point cloud metrics composed of different metrics_* functions available in the package.

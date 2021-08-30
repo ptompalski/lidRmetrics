@@ -18,3 +18,13 @@ standard deviation of height, coefficient of variation of height, skewness and k
 \description{
 Most common descriptive statistics used to characterize the vertical distribution of a point cloud.
 }
+\examples{
+library(lidR)
+library(lidRmetrics)
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+m1 <- cloud_metrics(las, ~metrics_basic(z = Z))
+
+m2 <- grid_metrics(las, ~metrics_basic(z = Z), res = 40)
+}

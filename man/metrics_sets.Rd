@@ -3,6 +3,7 @@
 \name{metrics_set1}
 \alias{metrics_set1}
 \alias{metrics_set2}
+\alias{metrics_all}
 \title{Pre-defined sets of metrics}
 \usage{
 metrics_set1(
@@ -18,6 +19,22 @@ metrics_set2(
   x,
   y,
   z,
+  zmin = NA,
+  threshold = c(2, 5),
+  dz = 1,
+  interval_count = 10,
+  zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
+  pixel_size = 1,
+  vox_size = 1
+)
+
+metrics_all(
+  x,
+  y,
+  z,
+  i,
+  ReturnNumber,
+  NumberOfReturns,
   zmin = NA,
   threshold = c(2, 5),
   dz = 1,

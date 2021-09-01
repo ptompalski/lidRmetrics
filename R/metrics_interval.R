@@ -6,8 +6,8 @@
 #' @param zintervals Height intervals
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
 #' @return Percentage of points within each height interval
-#' @export
-#' #' @examples
+#' 
+#' @examples
 #' library(lidR)
 #' library(lidRmetrics)
 #' LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
@@ -17,7 +17,7 @@
 #' 
 #' m2 <- grid_metrics(las, ~metrics_interval(z = Z), res = 40)
 
-
+#' @export
 metrics_interval <- function(z, zintervals=c(0, 0.15, 2, 5, 10, 20, 30), zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]

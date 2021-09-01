@@ -19,3 +19,13 @@ Percentage of points within each height interval
 \description{
 Percentage of points calculated for a set of horizontal layers.
 }
+\examples{
+library(lidR)
+library(lidRmetrics)
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+m1 <- cloud_metrics(las, ~metrics_interval(z = Z))
+
+m2 <- grid_metrics(las, ~metrics_interval(z = Z), res = 40)
+}

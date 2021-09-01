@@ -1,12 +1,3 @@
-#divide stdmetrics into smaller components
-
-#standard stats 
-#percentiles
-#cumulative 
-#proportion above x - cover metrics
-#move entropy and VCI to metrics_dispersion?
-
-
 #' Basic metrics
 #' 
 #' Most common descriptive statistics used to characterize the vertical distribution of a point cloud.
@@ -25,7 +16,7 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_basic(z = Z))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_basic(z = Z), res = 40)
+#' m2 <- grid_metrics(las, ~metrics_basic(z = Z), res = 20)
 
 metrics_basic <- function(z, zmin=NA) {
   

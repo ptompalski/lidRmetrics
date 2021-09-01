@@ -55,3 +55,27 @@ metrics_set2  <- function(x, y, z,
 }
 
 
+#' @rdname metrics_sets
+#' @export
+metrics_all  <- function(x, y, z, i,
+                         ReturnNumber,NumberOfReturns,
+                         zmin=NA, 
+                         threshold = c(2,5), 
+                         dz=1, 
+                         interval_count=10, 
+                         zintervals=c(0, 0.15, 2, 5, 10, 20, 30),
+                         pixel_size=1,
+                         vox_size=1) {
+  
+  m_set1    <- metrics_set1(z = z, zmin = zmin, threshold = threshold, dz = dz, interval_count = interval_count, zintervals = zintervals)
+  m_rumple  <- metrics_rumple(x = x, y = y, z = z, pixel_size = pixel_size)
+  m_vox     <- metrics_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
+  m_kde     <- metrics_kde(z = z, zmin = zmin)
+  m_echo    <- metrics_echo(z=z, ReturnNumber = ReturnNumber, NumberOfReturns=NumberOfReturns)
+  m_HOME    <- metrics_HOME(z = z, i = i, zmin = zmin)
+  
+  m <- c(m_set1, m_rumple, m_vox, m_kde, m_echo, m_HOME)
+  
+  return(m)
+  
+}

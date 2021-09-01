@@ -28,7 +28,7 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_basic(Z))
 
-m2 <- grid_metrics(las, ~metrics_set1(Z))
+m2 <- grid_metrics(las, ~metrics_set1(Z), res = 20)
 
 m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 ```

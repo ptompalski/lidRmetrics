@@ -39,6 +39,17 @@ m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 
 ## List of metrics
 
+    ## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+
+    ## v ggplot2 3.3.5     v purrr   0.3.4
+    ## v tibble  3.1.2     v dplyr   1.0.7
+    ## v tidyr   1.1.3     v stringr 1.4.0
+    ## v readr   1.4.0     v forcats 0.5.1
+
+    ## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+    ## x dplyr::filter() masks stats::filter()
+    ## x dplyr::lag()    masks stats::lag()
+
 <table>
 <thead>
 <tr>
@@ -49,7 +60,7 @@ Metrics name
 Description
 </th>
 <th style="text-align:left;">
-metrics\_\* function
+`metrics_* function`
 </th>
 <th style="text-align:left;">
 Notes
@@ -59,7 +70,7 @@ Notes
 <tbody>
 <tr>
 <td style="text-align:left;">
-n
+`n`
 </td>
 <td style="text-align:left;">
 total number of returns
@@ -68,12 +79,11 @@ total number of returns
 metrics\_basic
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-zmax, zmin, zmean, zsd, zcv, zskew, zkurt
+`zmax, zmin, zmean, zsd, zcv, zskew, zkurt`
 </td>
 <td style="text-align:left;">
 elevation maximum, minimum, mean, standard deviation, coeficient of
@@ -83,12 +93,11 @@ variation, skewness, and kurtosis
 metrics\_basic
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-zq1, zq5, …, zq95, zq99
+`zq1, zq5, …, zq95, zq99`
 </td>
 <td style="text-align:left;">
 elevation percentiles
@@ -97,12 +106,11 @@ elevation percentiles
 metrics\_percentiles
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-pzabovemean, pzabove2, pzabove5
+`pzabovemean, pzabove2, pzabove5`
 </td>
 <td style="text-align:left;">
 percentage of returns above a threshold. By default, percent of returns
@@ -112,12 +120,11 @@ above mean elevation, above 2 and 5 m are calculated.
 metrics\_percabove
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-ziqr
+`ziqr`
 </td>
 <td style="text-align:left;">
 interquartile distance
@@ -126,12 +133,11 @@ interquartile distance
 metrics\_dispersion
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-zMADmean, zMADmedian
+`zMADmean, zMADmedian`
 </td>
 <td style="text-align:left;">
 mean absolute deviation from the mean, and from the median
@@ -140,12 +146,11 @@ mean absolute deviation from the mean, and from the median
 metrics\_dispersion
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-CRR
+`CRR`
 </td>
 <td style="text-align:left;">
 canopy relief ratio ((mean - min) / (max – min))
@@ -154,12 +159,11 @@ canopy relief ratio ((mean - min) / (max – min))
 metrics\_dispersion
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-zentropy, VCI
+`zentropy, VCI`
 </td>
 <td style="text-align:left;">
 normalized Shanon diversity index, Vertical Complexity Index
@@ -175,7 +179,7 @@ Photogrammetric Engineering and Remote Sensing, 77(3), 261-269
 </tr>
 <tr>
 <td style="text-align:left;">
-zpcum1, zpcum2,…, zpcum8, zpcum9
+`zpcum1, zpcum2,..., zpcum8, zpcum9`
 </td>
 <td style="text-align:left;">
 canopy density metrics as defined by Woods et al 2008. Elevation range
@@ -197,7 +201,7 @@ Forestry Chronicle. 84(6): 827-839. <https://doi.org/10.5558/tfc84827-6>
 </tr>
 <tr>
 <td style="text-align:left;">
-L1, L2, L3, L4, Lskew, Lkurt, Lcoefvar
+`L1, L2, L3, L4, Lskew, Lkurt, Lcoefvar`
 </td>
 <td style="text-align:left;">
 L-moments (L1, L2, L3, L4), L-moment skewness and kurtosis, L-moment
@@ -212,7 +216,7 @@ requires the {Lmoments} package
 </tr>
 <tr>
 <td style="text-align:left;">
-lad\_max, lad\_mean, lad\_cv, lad\_min
+`lad_max, lad_mean, lad_cv, lad_min`
 </td>
 <td style="text-align:left;">
 Metrics based on the leaf area density
@@ -221,13 +225,11 @@ Metrics based on the leaf area density
 metrics\_lad
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-pz\_below\_0, pz\_0.0.15, pz\_0.15.2, pz\_2.5, pz\_5.10, pz\_10.20,
-pz\_20.30, pz\_above\_30
+`pz_below_0, pz_0.0.15, pz_0.15.2, pz_2.5, pz_5.10, pz_10.20, pz_20.30, pz_above_30`
 </td>
 <td style="text-align:left;">
 Interval metrics - proportion of returns between specified elevation
@@ -237,12 +239,11 @@ intervals. Default intervals are: 0, 0.15, 2, 5, 10, 20, and 30.
 metrics\_interval
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-rumple
+`rumple`
 </td>
 <td style="text-align:left;">
 A wrapper function for the rumple metric
@@ -251,12 +252,11 @@ A wrapper function for the rumple metric
 metrics\_rumple
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-vn
+`vn`
 </td>
 <td style="text-align:left;">
 total number of filled voxels
@@ -265,12 +265,11 @@ total number of filled voxels
 metrics\_voxels
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-vFRall, vFRcanopy,
+`vFRall, vFRcanopy,`
 </td>
 <td style="text-align:left;">
 filled ratio; FRall - a ratio between the number of filled voxels and
@@ -281,12 +280,11 @@ FRcanopy empty voxels above the canopy are excluded in the calculations
 metrics\_voxels
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-vzrumple
+`vzrumple`
 </td>
 <td style="text-align:left;">
 vertical rumple
@@ -295,12 +293,11 @@ vertical rumple
 metrics\_voxels
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-vzsd, vzcv
+`vzsd, vzcv`
 </td>
 <td style="text-align:left;">
 voxel elevation standard deviation and coeficient of variation
@@ -309,12 +306,11 @@ voxel elevation standard deviation and coeficient of variation
 metrics\_voxels
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-OpenGapSpace, ClosedGapSpace, Euphotic, Oligophotic
+`OpenGapSpace, ClosedGapSpace, Euphotic, Oligophotic`
 </td>
 <td style="text-align:left;">
 Canopy volume classes based on Lefsky et al 1999
@@ -332,7 +328,7 @@ Sensing of Environment, 70(3), 339–361.
 </tr>
 <tr>
 <td style="text-align:left;">
-kde\_peaks\_count, kde\_peaks\_elev, kde\_peaks\_value
+`kde_peaks_count, kde_peaks_elev, kde_peaks_value`
 </td>
 <td style="text-align:left;">
 Kernel density estimation applied to the distribution of point cloud
@@ -352,7 +348,7 @@ Visualization.
 </tr>
 <tr>
 <td style="text-align:left;">
-pFirst pIntermediate pLast pSingle pMultiple
+`pFirst pIntermediate pLast pSingle pMultiple`
 </td>
 <td style="text-align:left;">
 Percentage of returns by echo types (First, Intermediate, Last; and
@@ -362,12 +358,11 @@ Single, Multiple)
 metrics\_echo
 </td>
 <td style="text-align:left;">
-NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-HOME
+`HOME`
 </td>
 <td style="text-align:left;">
 height of median energy

@@ -37,3 +37,19 @@ m2 <- grid_metrics(las, ~metrics_set1(Z), res = 20)
 
 m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 ```
+
+## List of metrics
+
+```{r, echo=F}
+library(readxl)
+library(knitr)
+library(kableExtra)
+mtrxs <- readxl::read_excel("list_of_metrics.xlsx")
+
+kable(mtrxs, format = "html") #promissing
+# pander::pander(mtrxs, split.tables=Inf, split.cells = c(10, 25, 15, 40),
+#                          style="rmarkdown", missing="")
+
+# kbl(mtrxs, format = "html") 
+```
+

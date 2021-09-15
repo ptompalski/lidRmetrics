@@ -40,7 +40,8 @@ m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 
 ## List of metrics
 
-```{r, echo=F, results='asis'}
+
+```{r, echo=F, message=FALSE}
 library(readxl)
 library(knitr)
 library(tidyverse)
@@ -48,14 +49,26 @@ library(tidyverse)
 # rmarkdown::pandoc_options(to = "md",args = "-all_symbols_escapable")
 
 mtrxs <- readxl::read_excel("list_of_metrics.xlsx")
-names(mtrxs)[3] <- "`metrics_* function`"
-mtrxs <- mtrxs %>% mutate(`Metrics name` = paste0("`",`Metrics name`,"`"))
+
+# names(mtrxs)[3] <- knitr::inline_expr("metrics_* function")
+# mtrxs <- mtrxs %>% mutate(`Metrics name` = paste0("`",`Metrics name`,"`"))
 
 
 options(knitr.kable.NA = '')
-kable(mtrxs, format = "html") #promissing
+# kable(mtrxs, format = "html") #promissing
 # pander::pander(mtrxs, split.tables=Inf, split.cells = c(10, 25, 15, 40),
 #                          style="rmarkdown", missing="")
 
+kable_out <- knitr::kable(mtrxs, "html")
+readr::write_file(kable_out, "kable_out.html")
+
+
 ```
+
+
+
+```{r, echo=FALSE}
+htmltools::includeHTML("kable_out.html")
+```
+
 

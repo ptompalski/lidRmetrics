@@ -158,8 +158,8 @@ m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
    <td style="text-align:left;"> Lefsky, M. A., Cohen, W. B., Acker, S. A., Parker, G. G., Spies, T. A., &amp; Harding, D. (1999). Lidar Remote Sensing of the Canopy Structure and Biophysical Properties of Douglas-Fir Western Hemlock Forests. Remote Sensing of Environment, 70(3), 339–361. doi:10.1016/S0034-4257(99)00052-8 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> kde_peaks_count, kde_peaks_elev, kde_peaks_value </td>
-   <td style="text-align:left;"> Kernel density estimation applied to the distribution of point cloud elevation (Z). KDE allows to create a probability density function (using a Guassian kernel). The density function is then used to detect peaks (function maxima). Based on similar metric available in Fusion (see references), modified. </td>
+   <td style="text-align:left;"> kde_peaks_count, kde_peak1_elev,  kde_peak2_elev, …, kde_peak1_value, kde_peak2_value, …, kde_peak1_diff, kde_peak2_diff, … </td>
+   <td style="text-align:left;"> Based on similar metric available in Fusion (see references), with significant differences in the list of output statistics as well as the default bandwidth used when estimating kernel density. </td>
    <td style="text-align:left;"> metrics_kde </td>
    <td style="text-align:left;"> McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis and Visualization. http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf </td>
   </tr>

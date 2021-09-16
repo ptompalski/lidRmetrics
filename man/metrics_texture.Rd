@@ -21,7 +21,8 @@ metrics_texture(x, y, z, pixel_size, zmin = NA, chm_algorithm = NULL, ...)
 GLCM metrics
 }
 \description{
-Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM).
+Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM). CHM is calculated on the fly
+to allow easy integration with e.g. \code{lidR::grid_metrics} function.
 }
 \details{
 Function first uses the \code{lidR::grid_canopy()} algorithm to create a CHM. 

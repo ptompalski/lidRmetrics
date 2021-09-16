@@ -2,11 +2,17 @@
 #' 
 #' Kernel density estimation applied to the distribution of point cloud elevation (Z). KDE allows to 
 #' create a probability density function (using a Guassian kernel). The density function is then used to detect
-#' peaks (function maxima). Based on similar metric available in Fusion (see references), modified.
+#' peaks (function maxima). Based on similar metric available in Fusion (see references), with significant differences
+#' in the list of output statistics as well as the default bandwidth used when estimating kernel density.
 #' 
 #' @param z Z coordinate of the point cloud
+#' @param bw the smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
+#' correspond to the default \code{bw} parameter in \code{stats::density}.  
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Number of peaks, elevation and density value of the peak with largest density
+#' @param max_reported_peaks allows to limit the number of reported peaks. If the number of detected peaks is larger 
+#' than \code{max_reported_peaks}, only the peaks with highest density value are kept.
+#' @param ... Other parameters of the \code{stats::density} function
+#' @return Number of peaks, elevation and density value each peak, distance (height difference) between peaks
 #' 
 #' @references McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis and Visualization. http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf
 #' 
@@ -22,40 +28,120 @@
 
 
 #' @export
-metrics_kde <- function(z, zmin=NA) {
+metrics_kde <- function(z, bw=2, zmin=NA, max_reported_peaks=4, ...) {
   
-  peaks_count <- kde_peaks_elev <- kde_peaks_value <- NULL
+  if(max_reported_peaks >= 2) calc_diff <- T
   
-  if (!is.na(zmin)) z <- z[z>zmin]
   
-  if (length(z) > 2) {
-    peaks <- lidRmetrics:::get_peaks(z = z)  
-    peaks_count <- nrow(peaks)
-    peaks_highest <- peaks[peaks$y == max(peaks$y),]
-    kde_peaks_elev <- peaks_highest[,1]
-    kde_peaks_value <-  peaks_highest[,2]
+  #initialize output variables, assign NA
+  peaks_count <- NA
+  
+  varnames_elev  <- paste0("kde_peak",1:max_reported_peaks,"_elev")
+  varnames_value <- paste0("kde_peak",1:max_reported_peaks,"_value")
+  if(calc_diff) varnames_diff  <- paste0("kde_peak",1:(max_reported_peaks-1),"_diff")
+  
+  
+  for (i in 1:max_reported_peaks) {
+    assign(varnames_elev[i], NA)
+    assign(varnames_value[i], NA)
+  }
+  if(calc_diff) {
+    for (i in 1:(max_reported_peaks-1)) {
+      assign(varnames_diff[i], NA)
+    }
   }
   
-  out <- list(
-    kde_peaks_count = peaks_count,
-    kde_peaks_elev = kde_peaks_elev,
-    kde_peaks_value = kde_peaks_value
-  )
+  
+  #filter z if zmin
+  if (!is.na(zmin)) z <- z[z>zmin]
+  
+  
+  if (length(z) > 2) {
+    
+    d <- stats::density(z, bw=bw, ...)
+    
+    peaks <- lidRmetrics:::get_peaks(d = d)  
+    
+    # peaks <- peaks[order(peaks$x, decreasing = T),]
+    
+    peaks_count <- nrow(peaks)
+    
+    
+    # if more peaks are detected than max_reported_peaks then
+    # filter peaks based on their density value (aka "strengh")
+    # and keep the strongest ones
+    
+    if (peaks_count > max_reported_peaks) {
+      
+      peaks <- peaks[order(peaks$y, decreasing = T),] #sort by density value
+      peaks <- peaks[1:max_reported_peaks,]
+      
+    }
+    
+    #assign peak location (x) and value (y) to each of the initialized vars, 
+    #but only up to peaks count
+    #compare max_reported_peaks with peaks_count
+    #use whichever is smaller
+    
+    calc_reported_peaks <- min(peaks_count, max_reported_peaks)
+    
+    peaks <- peaks[order(peaks$x, decreasing = T),] #sort by elevation to report peaks from top to bottom
+    
+    for (j in 1:calc_reported_peaks) {
+      assign(varnames_elev[j], peaks$x[j])
+      assign(varnames_value[j], peaks$y[j])
+    }
+    
+    
+    if(calc_diff) {
+      # calculate distance between peaks
+      peaks_diff <- abs(diff(peaks$x))
+      
+      for (j in 1:length(peaks_diff)) {
+        assign(varnames_diff[j], peaks_diff[j])
+      }
+    }
+    
+    
+  }
+  
+  out1 <- out2 <- list()
+  
+  for (i in 1:max_reported_peaks) {
+    out1[[i]] <- get(varnames_elev[i])
+    out2[[i]] <- get(varnames_value[i])
+  }
+  
+  names(out1) <- varnames_elev
+  names(out2) <- varnames_value
+  
+  out <- list(kde_peaks_count = peaks_count)
+  
+  out <- c(out, out1, out2)
+  
+  if(calc_diff) {
+    out3 <- list()
+    
+    for (i in 1:(max_reported_peaks-1)) {
+      out3[[i]] <- get(varnames_diff[i])
+    }
+    
+    names(out3) <- varnames_diff
+    
+    out <- c(out, out3)
+  }
   
   return(out)
-  
-  
 }
 
 
 
 
-
-get_peaks <- function(z) {
-  
-  d <- stats::density(z)
+get_peaks <- function(d) {
   
   i <- which(diff(sign(diff(d$y))) < 0) + 1 #https://stackoverflow.com/questions/58785930/r-find-maximum-of-density-plot
+  
   data.frame(x = d$x[i], y = d$y[i])
   
 }
+

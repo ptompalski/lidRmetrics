@@ -4,7 +4,7 @@
 \alias{metrics_kde}
 \title{Kernel density estimation (KDE) metrics}
 \usage{
-metrics_kde(z, bw = 2, zmin = NA, max_reported_peaks = 4, ...)
+metrics_kde(z, bw = 2, zmin = NA, npeaks = 4, ...)
 }
 \arguments{
 \item{z}{Z coordinate of the point cloud}
@@ -14,13 +14,13 @@ correspond to the default \code{bw} parameter in \code{stats::density}.}
 
 \item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
 
-\item{max_reported_peaks}{allows to limit the number of reported peaks. If the number of detected peaks is larger 
-than \code{max_reported_peaks}, only the peaks with highest density value are kept.}
+\item{npeaks}{Total number of recorded peaks. If the number of detected peaks is larger 
+than \code{npeaks}, only the peaks with highest density value are kept.}
 
 \item{...}{Other parameters of the \code{stats::density} function}
 }
 \value{
-Number of peaks, elevation and density value each peak, distance (height difference) between peaks
+Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
 }
 \description{
 Kernel density estimation applied to the distribution of point cloud elevation (Z). KDE allows to 

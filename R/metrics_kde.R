@@ -9,10 +9,10 @@
 #' @param bw the smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
 #' correspond to the default \code{bw} parameter in \code{stats::density}.  
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @param max_reported_peaks allows to limit the number of reported peaks. If the number of detected peaks is larger 
-#' than \code{max_reported_peaks}, only the peaks with highest density value are kept.
+#' @param npeaks Total number of recorded peaks. If the number of detected peaks is larger 
+#' than \code{npeaks}, only the peaks with highest density value are kept.
 #' @param ... Other parameters of the \code{stats::density} function
-#' @return Number of peaks, elevation and density value each peak, distance (height difference) between peaks
+#' @return Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
 #' 
 #' @references McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis and Visualization. http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf
 #' 
@@ -28,25 +28,29 @@
 
 
 #' @export
-metrics_kde <- function(z, bw=2, zmin=NA, max_reported_peaks=4, ...) {
+metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
   
-  if(max_reported_peaks >= 2) calc_diff <- T
+  calc_diff <- ifelse(npeaks >= 2, T, F)
   
+  # if(npeaks >= 2) {
+  #   calc_diff <- T
+  #   }
+  # 
   
   #initialize output variables, assign NA
   peaks_count <- NA
   
-  varnames_elev  <- paste0("kde_peak",1:max_reported_peaks,"_elev")
-  varnames_value <- paste0("kde_peak",1:max_reported_peaks,"_value")
-  if(calc_diff) varnames_diff  <- paste0("kde_peak",1:(max_reported_peaks-1),"_diff")
+  varnames_elev  <- paste0("kde_peak",1:npeaks,"_elev")
+  varnames_value <- paste0("kde_peak",1:npeaks,"_value")
+  if(calc_diff) varnames_diff  <- paste0("kde_peak",1:(npeaks-1),"_diff")
   
   
-  for (i in 1:max_reported_peaks) {
+  for (i in 1:npeaks) {
     assign(varnames_elev[i], NA)
     assign(varnames_value[i], NA)
   }
   if(calc_diff) {
-    for (i in 1:(max_reported_peaks-1)) {
+    for (i in 1:(npeaks-1)) {
       assign(varnames_diff[i], NA)
     }
   }
@@ -67,23 +71,23 @@ metrics_kde <- function(z, bw=2, zmin=NA, max_reported_peaks=4, ...) {
     peaks_count <- nrow(peaks)
     
     
-    # if more peaks are detected than max_reported_peaks then
+    # if more peaks are detected than npeaks then
     # filter peaks based on their density value (aka "strengh")
     # and keep the strongest ones
     
-    if (peaks_count > max_reported_peaks) {
+    if (peaks_count > npeaks) {
       
       peaks <- peaks[order(peaks$y, decreasing = T),] #sort by density value
-      peaks <- peaks[1:max_reported_peaks,]
+      peaks <- peaks[1:npeaks,]
       
     }
     
     #assign peak location (x) and value (y) to each of the initialized vars, 
     #but only up to peaks count
-    #compare max_reported_peaks with peaks_count
+    #compare npeaks with peaks_count
     #use whichever is smaller
     
-    calc_reported_peaks <- min(peaks_count, max_reported_peaks)
+    calc_reported_peaks <- min(peaks_count, npeaks)
     
     peaks <- peaks[order(peaks$x, decreasing = T),] #sort by elevation to report peaks from top to bottom
     
@@ -107,7 +111,7 @@ metrics_kde <- function(z, bw=2, zmin=NA, max_reported_peaks=4, ...) {
   
   out1 <- out2 <- list()
   
-  for (i in 1:max_reported_peaks) {
+  for (i in 1:npeaks) {
     out1[[i]] <- get(varnames_elev[i])
     out2[[i]] <- get(varnames_value[i])
   }
@@ -122,7 +126,7 @@ metrics_kde <- function(z, bw=2, zmin=NA, max_reported_peaks=4, ...) {
   if(calc_diff) {
     out3 <- list()
     
-    for (i in 1:(max_reported_peaks-1)) {
+    for (i in 1:(npeaks-1)) {
       out3[[i]] <- get(varnames_diff[i])
     }
     

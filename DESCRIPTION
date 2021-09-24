@@ -17,6 +17,6 @@ Imports:
     tidyr,
     magrittr
 Suggests:
-    Lmoments
+    Lmoments,
     ForestTools (>= 0.2.5)
 RoxygenNote: 7.1.1

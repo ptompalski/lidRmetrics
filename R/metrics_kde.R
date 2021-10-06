@@ -38,7 +38,7 @@ metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
   # 
   
   #initialize output variables, assign NA
-  peaks_count <- NA
+  peaks_count <- NA_integer_
   
   varnames_elev  <- paste0("kde_peak",1:npeaks,"_elev")
   varnames_value <- paste0("kde_peak",1:npeaks,"_value")
@@ -46,12 +46,12 @@ metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
   
   
   for (i in 1:npeaks) {
-    assign(varnames_elev[i], NA)
-    assign(varnames_value[i], NA)
+    assign(varnames_elev[i], NA_real_)
+    assign(varnames_value[i], NA_real_)
   }
   if(calc_diff) {
     for (i in 1:(npeaks-1)) {
-      assign(varnames_diff[i], NA)
+      assign(varnames_diff[i], NA_real_)
     }
   }
   
@@ -97,7 +97,7 @@ metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
     }
     
     
-    if(calc_diff) {
+    if(calc_diff & calc_reported_peaks >= 2) {
       # calculate distance between peaks
       peaks_diff <- abs(diff(peaks$x))
       
@@ -137,6 +137,7 @@ metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
   
   return(out)
 }
+
 
 
 

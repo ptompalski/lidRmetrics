@@ -3,7 +3,7 @@
 \name{metrics_set1}
 \alias{metrics_set1}
 \alias{metrics_set2}
-\alias{metrics_all}
+\alias{metrics_set3}
 \title{Pre-defined sets of metrics}
 \usage{
 metrics_set1(
@@ -28,7 +28,7 @@ metrics_set2(
   vox_size = 1
 )
 
-metrics_all(
+metrics_set3(
   x,
   y,
   z,
@@ -63,4 +63,18 @@ metrics_all(
 }
 \description{
 Pre-defined sets of point cloud metrics composed of different metrics_* functions available in the package.
+}
+\details{
+The three pre-defined sets of metrics include different number of the metrics_* functions and are provided 
+to conventiently compute most of the metrics commonly used at the same time.
+\describe{
+  \item{\code{metrics_set1()}}{Included metrics: \code{metrics_basic()}, \code{metrics_percentiles()},  
+  \code{metrics_percabove()}, \code{metrics_dispersion()},  \code{metrics_canopydensity()}, 
+  \code{metrics_Lmoments()}, \code{metrics_lad()}, \code{metrics_interval()}.}
+  \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_rumple()},
+  \code{metrics_voxels()}. }
+  \item{\code{metrics_set3()}}{Included metrics: All metrics in \code{metrics_set2()}, \code{metrics_kde()}, 
+   \code{metrics_echo()}, \code{metrics_HOME()}}.
+}
+Currently no set includes \code{metrics_texture()} as the function is considered experimental at this stage.
 }

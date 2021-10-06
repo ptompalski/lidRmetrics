@@ -57,7 +57,7 @@ metrics_set2  <- function(x, y, z,
 
 #' @rdname metrics_sets
 #' @export
-metrics_all  <- function(x, y, z, i,
+metrics_set3  <- function(x, y, z, i,
                          ReturnNumber,NumberOfReturns,
                          zmin=NA, 
                          threshold = c(2,5), 
@@ -73,9 +73,9 @@ metrics_all  <- function(x, y, z, i,
   m_kde     <- metrics_kde(z = z, zmin = zmin)
   m_echo    <- metrics_echo(z=z, ReturnNumber = ReturnNumber, NumberOfReturns=NumberOfReturns)
   m_HOME    <- metrics_HOME(z = z, i = i, zmin = zmin)
-  m_tex     <- metrics_texture(x = x, y = y, z = z, pixel_size = pixel_size, zmin = zmin)
+  #m_tex     <- metrics_texture(x = x, y = y, z = z, pixel_size = pixel_size, zmin = zmin)
   
-  m <- c(m_set1, m_rumple, m_vox, m_kde, m_echo, m_HOME, m_tex)
+  m <- c(m_set1, m_rumple, m_vox, m_kde, m_echo, m_HOME)
   
   return(m)
   

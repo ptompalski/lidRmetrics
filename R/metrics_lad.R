@@ -22,11 +22,23 @@ metrics_lad <- function(z, zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  ladprofile = lidR::LAD(z)
-  lad_metrics <- list(
-    lad_max = with(ladprofile, max(lad, na.rm = TRUE)),
-    lad_mean = with(ladprofile, mean(lad, na.rm = TRUE)),
-    lad_cv = with(ladprofile, sd(lad, na.rm=TRUE)/mean(lad, na.rm = TRUE)),
-    lad_min = with(ladprofile, min(lad, na.rm = TRUE)))
+  lad_max <- lad_mean <- lad_cv <- lad_min <- NA_real_
+  
+  if(length(z) > 2) {
+    
+    ladprofile = lidR::LAD(z)
+    
+    lad_max = with(ladprofile, max(lad, na.rm = TRUE))
+    lad_mean = with(ladprofile, mean(lad, na.rm = TRUE))
+    lad_cv = with(ladprofile, sd(lad, na.rm=TRUE)/mean(lad, na.rm = TRUE))
+    lad_min = with(ladprofile, min(lad, na.rm = TRUE))
+    
+  }
+  
+  lad_metrics <- list(lad_max = lad_max,
+                      lad_mean = lad_mean,
+                      lad_cv = lad_cv,
+                      lad_min = lad_min)
+  
   return(lad_metrics)
 }

@@ -46,44 +46,46 @@ create_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
 
 metrics_voxstructure <- function(z, vox_size) {
   
-  # define breaks
-  brks <- seq(from=min(z), to=max(z), by=vox_size)
+  vzrumple <- vzsd <- vzcv <- NA_real_
   
-  if (length(brks) <= 1) {
-    output <- list(
-      v_vert_rumple =  NA_real_ , 
-      v_freq_sd= NA_real_ ,  
-      v_freq_cv= NA_real_ 
-    )
-  } else {
+  if (length(z) > 2) {
     
-    # calculate frequencies
-    v_hist <- hist(z, breaks=brks,  plot=F)
+    # define breaks
+    brks <- seq(from=min(z), to=max(z), by=vox_size)
     
-    # normalize frequencies (0,1)
-    freq <- v_hist$counts
-    freq <- (freq-min(freq))/(max(freq)-min(freq))
-    
-    #vertical rumple 
-    # flength <- sum(sqrt(abs(lag(freq) - freq)^2 + vox_size^2), na.rm=T) 
-    euclidean <- function(a, b) sqrt(sum((a - b)^2))
-    
-    flength = euclidean(freq, brks[1:length(freq)])
-    fheight <- length(freq)*vox_size
-    frumple <- flength/fheight
-    
-    #other metrics
-    fsd <- sd(freq)
-    fcv <- fsd / mean(freq) * 100
-    
-    output <- list(
+    if (length(brks) > 1) {
       
-      vzrumple = if(is.null(frumple)) NA_real_ else frumple , 
-      vzsd= if(is.null(fsd)) NA_real_ else fsd  , 
-      vzcv= if(is.null(fcv)) NA_real_ else fcv   
-    )
-    
+      # calculate frequencies
+      v_hist <- hist(z, breaks=brks,  plot=F)
+      
+      # normalize frequencies (0,1)
+      freq <- v_hist$counts
+      freq <- (freq-min(freq))/(max(freq)-min(freq))
+      
+      #vertical rumple 
+      # flength <- sum(sqrt(abs(lag(freq) - freq)^2 + vox_size^2), na.rm=T) 
+      euclidean <- function(a, b) sqrt(sum((a - b)^2))
+      
+      flength = euclidean(freq, brks[1:length(freq)])
+      fheight <- length(freq)*vox_size
+      vzrumple <- flength/fheight
+      
+      #other metrics
+      vzsd <- sd(freq)
+      vzcv <- vzsd / mean(freq) * 100
+      
+      
+      
+    }
   }
+  
+  output <- list(
+    vzrumple = vzrumple, 
+    vzsd= vzsd, 
+    vzcv= vzcv
+  )
+  
+  
   
   return(output)
 }

@@ -14,6 +14,10 @@
 
 metrics_lefsky <- function(x, y, z, n) {
   
+  OpenGapSpace <- ClosedGapSpace <- Euphotic <- Oligophotic <- NA_real_
+  
+  if (length(z) > 2) {
+  
   dvox <-  data.table::data.table(X=x, Y=y, Z=z, n=n)
   
   dvox_top <- dvox %>% 
@@ -47,6 +51,9 @@ metrics_lefsky <- function(x, y, z, n) {
   out <- vox_stats %>% tidyr::pivot_wider(names_from = class, values_from = perc) %>% #, names_glue = "{.value}_{class}") %>%
     as.list()
   
+  } else {
+    out <- list(OpenGapSpace=OpenGapSpace, ClosedGapSpace=ClosedGapSpace, Euphotic=Euphotic, Oligophotic=Oligophotic)
+  }
   
   return(out)
 }

@@ -34,7 +34,7 @@ metrics_Lmoments <- function(z, zmin=NA) {
       #calculate Lmoments ratios:
       Lskew = lmom[3] / lmom[2]
       Lkurt = lmom[4] / lmom[2]
-      Lcoefvar = lmom[1] / lmom[2]
+      Lcoefvar = lmom[2] / lmom[1]
       
       lmom <- as.list(lmom)
       

@@ -17,7 +17,7 @@ metrics_canopydensity <- function(z, interval_count=10, zmin=NA) { #after Woods 
   zminimum <- min(z)
   
   if (zmax <= zminimum) {
-    d <- rep(0, interval_count-1)
+    d <- as.list(rep(0, interval_count-1))
   }
   else {
     breaks <- seq(zminimum, zmax, (zmax - zminimum)/interval_count)

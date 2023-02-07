@@ -7,7 +7,7 @@
 #' @param dz numeric. The thickness of the layers used (height bin)
 #' @param k numeric. is the extinction coefficient
 #' @param z0 numeric. The bottom limit of the profile
-#' @return min, max, mean, and cv, of the leaf area density profile.
+#' @return min, max, mean, cv and sum (LAI), of the leaf area density profile.
 #' @export
 #' 
 #' @examples
@@ -25,7 +25,7 @@ metrics_lad <- function(z, zmin=NA, dz = 1, k = 0.5, z0 = 2) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  lad_max <- lad_mean <- lad_cv <- lad_min <- NA_real_
+  lad_max <- lad_mean <- lad_cv <- lad_min <- lai <- NA_real_
   
   if(length(z) > 2) {
     
@@ -35,13 +35,15 @@ metrics_lad <- function(z, zmin=NA, dz = 1, k = 0.5, z0 = 2) {
     lad_mean <- with(ladprofile, mean(lad, na.rm = TRUE))
     lad_cv <- with(ladprofile, sd(lad, na.rm=TRUE)/mean(lad, na.rm = TRUE))
     lad_min <- with(ladprofile, min(lad, na.rm = TRUE))
-    
+    lai <- with(ladprofile, sum(lad, na.rm = TRUE))
+
   }
   
   lad_metrics <- list(lad_max = lad_max,
                       lad_mean = lad_mean,
                       lad_cv = lad_cv,
-                      lad_min = lad_min)
+                      lad_min = lad_min,
+                      lai = lai)
   
   return(lad_metrics)
 }

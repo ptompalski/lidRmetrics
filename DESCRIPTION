@@ -4,8 +4,8 @@ Version: 0.0.1
 Authors@R: c(
     person("Piotr", "Tompalski", email = "piotr.tompalski@gmail.com", role = c("aut", "cre")),
     person("Jean-Romain", "Roussel", email = "", role = c("ctb")),
-    person("Murray", "Woods", email = "", role = c("ctb"))
-    person("Leonard", Hambrecht, email = "", role = c("ctb"))
+    person("Murray", "Woods", email = "", role = c("ctb")),
+    person("Leonard", "Hambrecht", email = "", role = c("ctb"))
     )
 Description: Several pre-defined sets of point cloud metrics to use with the lidR package *_metric functions.
 Depends: R (>= 3.5.1)

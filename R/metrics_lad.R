@@ -4,6 +4,9 @@
 #' 
 #' @param z Z coordinate of the point cloud
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
+#' @param dz numeric. The thickness of the layers used (height bin)
+#' @param k numeric. is the extinction coefficient
+#' @param z0 numeric. The bottom limit of the profile
 #' @return min, max, mean, and cv, of the leaf area density profile.
 #' @export
 #' 
@@ -18,7 +21,7 @@
 #' m2 <- grid_metrics(las, ~metrics_lad(z = Z), res = 40)
 
 
-metrics_lad <- function(z, zmin=NA) {
+metrics_lad <- function(z, zmin=NA, dz = 1, k = 0.5, z0 = 2) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
@@ -26,7 +29,7 @@ metrics_lad <- function(z, zmin=NA) {
   
   if(length(z) > 2) {
     
-    ladprofile = lidR::LAD(z)
+    ladprofile = lidR::LAD(z, dz = dz, k = k, z0 = z0)
     
     lad_max = with(ladprofile, max(lad, na.rm = TRUE))
     lad_mean = with(ladprofile, mean(lad, na.rm = TRUE))

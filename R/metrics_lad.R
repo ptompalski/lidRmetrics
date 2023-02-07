@@ -29,12 +29,12 @@ metrics_lad <- function(z, zmin=NA, dz = 1, k = 0.5, z0 = 2) {
   
   if(length(z) > 2) {
     
-    ladprofile = lidR::LAD(z, dz = dz, k = k, z0 = z0)
+    ladprofile <- lidR::LAD(z, dz = dz, k = k, z0 = z0)
     
-    lad_max = with(ladprofile, max(lad, na.rm = TRUE))
-    lad_mean = with(ladprofile, mean(lad, na.rm = TRUE))
-    lad_cv = with(ladprofile, sd(lad, na.rm=TRUE)/mean(lad, na.rm = TRUE))
-    lad_min = with(ladprofile, min(lad, na.rm = TRUE))
+    lad_max <- with(ladprofile, max(lad, na.rm = TRUE))
+    lad_mean <- with(ladprofile, mean(lad, na.rm = TRUE))
+    lad_cv <- with(ladprofile, sd(lad, na.rm=TRUE)/mean(lad, na.rm = TRUE))
+    lad_min <- with(ladprofile, min(lad, na.rm = TRUE))
     
   }
   

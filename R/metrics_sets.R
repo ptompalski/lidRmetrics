@@ -36,11 +36,12 @@ metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10
   m_percab  <- metrics_percabove(z = z, threshold = threshold, zmin = zmin)
   m_disp    <- metrics_dispersion(z=z, dz=dz, zmin=zmin)
   m_candens <- metrics_canopydensity(z=z, interval_count = interval_count, zmin = zmin)
+  m_fhd     <- metrics_fhd(z=z,dz=dz, zmin=zmin)
   m_lmom    <- metrics_Lmoments(z=z, zmin=zmin)
   m_lad     <- metrics_lad(z=z, zmin=zmin)
   m_int     <- metrics_interval(z=z, zmin=zmin, zintervals = zintervals)
   
-  m <- c(m_basic, m_prctls, m_percab, m_disp, m_candens, m_lmom, m_lad, m_int)
+  m <- c(m_basic, m_prctls, m_percab, m_disp, m_candens, m_fhd, m_lmom, m_lad, m_int)
   
   return(m)
   

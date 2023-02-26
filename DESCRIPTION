@@ -19,4 +19,4 @@ Imports:
 Suggests:
     Lmoments,
     ForestTools (>= 0.2.5)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

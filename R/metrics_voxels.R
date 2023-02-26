@@ -39,7 +39,8 @@
 
 metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
   
-  vn <- vFRall <- vFRcanopy <- NA_real_
+  vn <- NA_integer_
+  vFRall <- vFRcanopy <- NA_real_
   
   if (length(z) > 2) {
     

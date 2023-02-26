@@ -209,7 +209,7 @@ requires the {Lmoments} package
 </tr>
 <tr>
 <td style="text-align:left;">
-lad\_max, lad\_mean, lad\_cv, lad\_min
+lad\_max, lad\_mean, lad\_cv, lad\_min, lai
 </td>
 <td style="text-align:left;">
 Metrics based on the leaf area density
@@ -218,6 +218,7 @@ Metrics based on the leaf area density
 metrics\_lad
 </td>
 <td style="text-align:left;">
+LAI implementation based on [leafR](https://github.com/DRAAlmeida/leafR)
 </td>
 </tr>
 <tr>

@@ -2,10 +2,10 @@
 #' 
 #' Most common descriptive statistics used to characterize the vertical distribution of points in a point cloud.
 #' 
-#' @param z Z coordinate of the point cloud
+#' @param z Z coordinate of the point cloud (point heights)
 #' @param zmin Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.
 #' @return A set of descriptive statistics including: total number of points, maximum height, minimum height, mean height, 
-#' standard deviation of height, coefficient of variation of height, skewness and kurtosis of height
+#' variance of height, standard deviation of height, coefficient of variation of height, skewness and kurtosis of height.
 #' @export
 #' 
 #' @examples
@@ -14,9 +14,28 @@
 #' LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
 #' las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 #' 
+#' #================
+#' # CLOUD METRICS
+#' #================
+#' 
 #' m1 <- cloud_metrics(las, ~metrics_basic(z = Z))
 #' 
+#' #================
+#' # PIXEL METRICS
+#' #================
+#' 
 #' m2 <- pixel_metrics(las, ~metrics_basic(z = Z), res = 20)
+#' 
+#' 
+#' #================
+#' # PLOT METRICS
+#' #================
+#' 
+#' shpfile <- system.file("extdata", "efi_plot.shp", package="lidR")
+#' inventory <- sf::st_read(shpfile, quiet = TRUE)
+#' 
+#' m3 <- plot_metrics(las, ~metrics_basic(z = Z,  zmin = 2), inventory, radius = 11.28)
+
 
 metrics_basic <- function(z, zmin=NA) {
   
@@ -26,6 +45,7 @@ metrics_basic <- function(z, zmin=NA) {
   zmax <- max(z)
   zminimum <- min(z) #this is to confirm if any threshold was applied
   zmean <- mean(z)
+  zvar <- stats::var(z)
   zsd <- stats::sd(z)
   zcv <- zsd / zmean * 100
   zskew <- (sum((z - zmean)^3)/n)/(sum((z - zmean)^2)/n)^(3/2)
@@ -36,6 +56,7 @@ metrics_basic <- function(z, zmin=NA) {
     zmax=zmax,
     zmin = zminimum,
     zmean = zmean, 
+    zvar = zvar,
     zsd = zsd, 
     zcv = zcv,
     zskew = zskew,

@@ -1,15 +1,19 @@
-#' Metrics based on echo types
+#' Count and proportion of points by echo types
 #' 
 #' Based on the return number and number of returns, point cloud returns are classified into different echo types. Two different
 #' classification routines are applied. Under the first classification routine returns are classified into First, Intermediate, and Last. 
-#' Under the second classification routine returns are classified into Single or Multiple.
+#' Under the second classification routine returns are classified into Single or Multiple. Function then calculates point counts and proportion 
+#' of points by each echo type. Ratios of First to Last, First to Intermediate, and Multiple to Single, are also calculated.
 #' 
 #' @param ReturnNumber return number
 #' @param NumberOfReturns number of returns
 #' @param z Z coordinate of the point cloud. Required only if \code{zmin} is used. 
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Percentage of returns by each echo type
+#' @return Count (n_first, n_intermediate, n_last, n_single, n_multiple) 
+#' and percentage (p_first, p_intermediate, p_last, p_single, p_multiple) of returns by each echo type.
+#' Ratio of First to Last, First to Intermediate, and Multiple to Single.
 #' 
+#' @export
 #' 
 #' @examples
 #' library(lidR)
@@ -17,9 +21,9 @@
 #' LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
 #' las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 #' 
-#' m1 <- cloud_metrics(las, ~metrics_echo(z = Z, ReturnNumber=ReturnNumber, NumberOfReturns=NumberOfReturns))
+#' m1 <- cloud_metrics(las, ~metrics_echo(ReturnNumber=ReturnNumber, NumberOfReturns=NumberOfReturns))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_echo(z = Z, ReturnNumber=ReturnNumber, NumberOfReturns=NumberOfReturns), res = 20)
+#' m2 <- pixel_metrics(las, ~metrics_echo(ReturnNumber=ReturnNumber, NumberOfReturns=NumberOfReturns), res = 20)
 
 
 metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
@@ -27,10 +31,12 @@ metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
   if (!is.na(zmin) & is.null(z)) {warning("Both z and zmin parameters are required to apply zmin filter. zmin threshold not applied.")}
   
   if (!is.na(zmin) & !is.null(z))  {
+    
     zfilter <- z>zmin
     ReturnNumber <- ReturnNumber[zfilter]
     NumberOfReturns <- NumberOfReturns[zfilter]
-    }
+    
+  }
   
   
   filter <- ReturnNumber > 0 & NumberOfReturns > 0 & ReturnNumber <= NumberOfReturns
@@ -39,17 +45,41 @@ metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
   
   n = length(ReturnNumber)
   
-  first = sum(ReturnNumber == 1)/n * 100
-  intermediate = sum(ReturnNumber > 1 & ReturnNumber < NumberOfReturns)/n * 100
-  last = sum(ReturnNumber == NumberOfReturns & ReturnNumber > 1)/n * 100
+  n_first <- sum(ReturnNumber == 1)
+  p_first <- n_first / n * 100
+  
+  n_intermediate <- sum(ReturnNumber > 1 & ReturnNumber < NumberOfReturns)
+  p_intermediate <- n_intermediate / n * 100
+  
+  n_last <- sum(ReturnNumber == NumberOfReturns & ReturnNumber > 1)
+  p_last <- n_last / n * 100
   
   
   #single/multiple
-  single <- sum(NumberOfReturns==1) / n * 100
-  multiple <- sum(NumberOfReturns > 1) / n * 100
+  n_single <- sum(NumberOfReturns==1)
+  p_single <- n_single / n * 100
   
+  n_multiple <- sum(NumberOfReturns > 1)
+  p_multiple <- n_multiple / n * 100
   
-  out <- list(pfirst = first, pintermidiate = intermediate, plast = last, psingle=single, pmultiple=multiple)
+  #ratios
+  ratio_first_last = n_first / n_last
+  ratio_first_intermediate = n_first / n_intermediate
+  ratio_multiple_single = n_multiple / n_single
+  
+  out <- list(n_first = n_first,
+              n_intermediate = n_intermediate,
+              n_last = n_last,
+              n_single = n_single,
+              n_multiple = n_multiple,
+              p_first = p_first, 
+              p_intermidiate = p_intermediate, 
+              p_last = p_last, 
+              p_single = p_single, 
+              p_multiple = p_multiple,
+              ratio_first_last = ratio_first_last,
+              ratio_first_intermediate = ratio_first_intermediate,
+              ratio_multiple_single = ratio_multiple_single)
   
   return(out)
 }

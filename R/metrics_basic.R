@@ -1,9 +1,9 @@
 #' Basic metrics
 #' 
-#' Most common descriptive statistics used to characterize the vertical distribution of a point cloud.
+#' Most common descriptive statistics used to characterize the vertical distribution of points in a point cloud.
 #' 
 #' @param z Z coordinate of the point cloud
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
+#' @param zmin Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.
 #' @return A set of descriptive statistics including: total number of points, maximum height, minimum height, mean height, 
 #' standard deviation of height, coefficient of variation of height, skewness and kurtosis of height
 #' @export
@@ -16,7 +16,7 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_basic(z = Z))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_basic(z = Z), res = 20)
+#' m2 <- pixel_metrics(las, ~metrics_basic(z = Z), res = 20)
 
 metrics_basic <- function(z, zmin=NA) {
   

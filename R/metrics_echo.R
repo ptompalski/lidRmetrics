@@ -1,15 +1,15 @@
-#' Count and proportion of points by echo types
+#' Number and proportion of points by echo types
 #' 
 #' Based on the return number and number of returns, point cloud returns are classified into different echo types. Two different
 #' classification routines are applied. Under the first classification routine returns are classified into First, Intermediate, and Last. 
-#' Under the second classification routine returns are classified into Single or Multiple. Function then calculates point counts and proportion 
-#' of points by each echo type. Ratios of First to Last, First to Intermediate, and Multiple to Single, are also calculated.
+#' Under the second classification routine returns are classified into Single or Multiple. Function then calculates point counts and proportions 
+#' by each echo type. Ratios of First to Last, First to Intermediate, and Multiple to Single, are also calculated.
 #' 
 #' @param ReturnNumber return number
 #' @param NumberOfReturns number of returns
 #' @param z Z coordinate of the point cloud. Required only if \code{zmin} is used. 
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Count (n_first, n_intermediate, n_last, n_single, n_multiple) 
+#' @return Number (n_first, n_intermediate, n_last, n_single, n_multiple) 
 #' and percentage (p_first, p_intermediate, p_last, p_single, p_multiple) of returns by each echo type.
 #' Ratio of First to Last, First to Intermediate, and Multiple to Single.
 #' 
@@ -27,6 +27,9 @@
 
 
 metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
   
   if (!is.na(zmin) & is.null(z)) {warning("Both z and zmin parameters are required to apply zmin filter. zmin threshold not applied.")}
   

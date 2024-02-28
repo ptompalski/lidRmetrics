@@ -16,7 +16,9 @@ Imports:
     lidR,
     dplyr,
     tidyr,
-    magrittr
+    magrittr,
+    lazyeval,
+    glue
 Suggests:
     Lmoments,
     ForestTools (>= 0.2.5)

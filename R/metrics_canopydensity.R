@@ -11,6 +11,12 @@
 
 metrics_canopydensity <- function(z, interval_count=10, zmin=NA) { #after Woods et al 2008  https://doi.org/10.5558/tfc84827-6
   
+  #check user inputs
+  assert_is_a_number(interval_count)
+  assert_is_positive(interval_count)
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  
+  
   if (!is.na(zmin)) z <- z[z>zmin]
   
   zmax <- max(z)

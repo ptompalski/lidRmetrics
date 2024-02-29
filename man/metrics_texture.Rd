@@ -9,16 +9,16 @@ metrics_texture(x, y, z, pixel_size, zmin = NA, chm_algorithm = NULL, ...)
 \arguments{
 \item{x, y, z}{X, Y, Z coordinates of a point cloud}
 
-\item{pixel_size}{Pixel size of the CHM}
+\item{pixel_size}{pixel size}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 
 \item{chm_algorithm}{Function used to generate the CHM. By default \code{lidR::p2r(na.fill = lidR::knnidw())} is used.}
 
-\item{...}{additional parameters passed to \code{ForestTools::glcm_img()} function}
+\item{...}{additional parameters passed to \code{ForestTools::glcm_img()}.}
 }
 \value{
-GLCM metrics
+A list. GLCM metrics.
 }
 \description{
 Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM). CHM is calculated on the fly
@@ -37,5 +37,5 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1))
 
-m2 <- grid_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
+m2 <- pixel_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
 }

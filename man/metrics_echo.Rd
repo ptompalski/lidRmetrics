@@ -11,14 +11,17 @@ metrics_echo(ReturnNumber, NumberOfReturns, z = NULL, zmin = NA)
 
 \item{NumberOfReturns}{number of returns}
 
-\item{z}{Z coordinate of the point cloud. Required only if \code{zmin} is used.}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-Number (n_first, n_intermediate, n_last, n_single, n_multiple) 
-and percentage (p_first, p_intermediate, p_last, p_single, p_multiple) of returns by each echo type.
-Ratio of First to Last, First to Intermediate, and Multiple to Single.
+A list. Calculated metrics include:
+\itemize{
+\item Number of first (\code{n_first}), intermediate (\code{n_intermediate}), last (\code{n_last}), single (\code{n_single}), and multiple  (\code{n_multiple}) returns
+\item Proportion of first (\code{p_first}), intermediate (\code{p_intermediate}), last (\code{p_last}), single (\code{p_single}), and multiple  (\code{p_multiple}) returns
+\item Ratio of First to Last (\code{ratio_first_last}), First to Intermediate (\code{ratio_first_intermediate}), and Multiple to Single (\code{ratio_multiple_single}). 
+}
 }
 \description{
 Based on the return number and number of returns, point cloud returns are classified into different echo types. Two different

@@ -5,14 +5,13 @@
 #' peaks (function maxima). Based on similar metric available in Fusion (see references), with significant differences
 #' in the list of output statistics as well as the default bandwidth used when estimating kernel density.
 #' 
-#' @param z Z coordinate of the point cloud
-#' @param bw the smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
+#' @inheritParams metrics_basic
+#' @param bw Numeric. Smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
 #' correspond to the default \code{bw} parameter in \code{stats::density}.  
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @param npeaks Total number of recorded peaks. If the number of detected peaks is larger 
+#' @param npeaks Numeric. Maximum number of recorded peaks. If the number of detected peaks is larger 
 #' than \code{npeaks}, only the peaks with highest density value are kept.
 #' @param ... Other parameters of the \code{stats::density} function
-#' @return Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
+#' @return A list. Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
 #' 
 #' @references McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis and Visualization. http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf
 #' 
@@ -24,18 +23,20 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_kde(z = Z))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_kde(z = Z), res = 20)
+#' m2 <- pixel_metrics(las, ~metrics_kde(z = Z), res = 20)
 
 
 #' @export
 metrics_kde <- function(z, bw=2, zmin=NA, npeaks=4, ...) {
   
+  #check user inputs
+  assert_is_a_number(bw)
+  assert_is_a_number(npeaks)
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  
+  
   calc_diff <- ifelse(npeaks >= 2, T, F)
   
-  # if(npeaks >= 2) {
-  #   calc_diff <- T
-  #   }
-  # 
   
   #initialize output variables, assign NA
   peaks_count <- NA_integer_

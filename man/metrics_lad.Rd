@@ -4,15 +4,21 @@
 \alias{metrics_lad}
 \title{LAD metrics}
 \usage{
-metrics_lad(z, zmin = NA)
+metrics_lad(z, zmin = NA, dz = 1, k = 0.5, z0 = 2)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
+
+\item{dz}{numeric. The thickness of the layers used (height bin)}
+
+\item{k}{numeric. is the extinction coefficient}
+
+\item{z0}{numeric. The bottom limit of the profile}
 }
 \value{
-min, max, mean, and cv, of the leaf area density profile.
+A list. \code{lad_min}, \code{lad_max}, \code{lad_mean}, \code{lad_cv}, and \code{lad_sum}.
 }
 \description{
 Metrics based on the leaf area density. \code{lidR::LAD()} used to calculate the leaf area density.
@@ -25,5 +31,5 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_lad(z = Z))
 
-m2 <- grid_metrics(las, ~metrics_lad(z = Z), res = 40)
+m2 <- pixel_metrics(las, ~metrics_lad(z = Z), res = 20)
 }

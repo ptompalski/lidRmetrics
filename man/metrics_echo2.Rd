@@ -15,12 +15,12 @@ or extend the output to always include the same return numbers (useful when proc
 different return numbers). See examples.
 Default NULL - all return numbers are included.}
 
-\item{z}{Z coordinate of the point cloud. Required only if \code{zmin} is used.}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-number of points by each return number
+A list. Number of points by each return number.
 }
 \description{
 Calculates the number of points by each return number.

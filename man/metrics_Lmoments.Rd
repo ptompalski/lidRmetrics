@@ -7,13 +7,28 @@
 metrics_Lmoments(z, zmin = NA)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-L-moments and L-moment ratios
+A list. L-moments and L-moment ratios
+\itemize{
+\item L-moments: \code{L1}, \code{L2}, \code{L3}, \code{L4}
+\item L-moment ratios: \code{Lskew} (\code{L3}/\code{L2}), \code{Lkurt} (\code{L4}/\code{L2}), and \code{Lcoefvar} (\code{L2}/\code{L1})
+}
 }
 \description{
 Calculates L-moments and L-moment ratios of point cloud heihts.
+}
+\examples{
+library(lidR)
+library(lidRmetrics)
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+m1 <- cloud_metrics(las, ~metrics_Lmoments(z = Z))
+
+m2 <- pixel_metrics(las, ~metrics_Lmoments(z = Z, zmin = 2), res = 20)
+
 }

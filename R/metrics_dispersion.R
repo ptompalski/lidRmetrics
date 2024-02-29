@@ -1,11 +1,23 @@
 #' Dispersion metrics
 #' 
-#' Metrics characterizing variation of point cloud heights. 
+#' Metrics characterizing the dispersion of point heights 
 #' 
-#' @param z Z coordinate of the point cloud
-#' @param dz layer thickness to use when calculating entropy and VCI.
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Interquartile distance, mean absolute deviation (MAD) around the mean and median, canopy relief ratio
+#' @inheritParams metrics_basic
+#' @param dz Numeric. Layer thickness to use when calculating entropy and VCI.
+#' @return A list. Calculated metrics include:
+#' \itemize{
+#' \item \code{ziqr} interquartile distance
+#' \item \code{zMADmean} mean absolute deviation (MAD) around the mean
+#' \item \code{zMADmedian} mean absolute deviation (MAD) around the median
+#' \item \code{CRR} canopy relief ratio
+#' \item \code{zentropy} entropy
+#' \item \code{VCI} vertical complexity index
+#' 
+#' }
+
+#' @details
+#' When calculating \code{zentropy} and \code{VCI}, \code{z} values below 0 are removed.
+#' 
 #' @export
 #' 
 #' @examples
@@ -16,10 +28,14 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_dispersion(z = Z))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_dispersion(z = Z), res = 40)
+#' m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2), res = 20)
 
 
 metrics_dispersion <- function(z, dz=1, zmin=NA) {
+  
+  #check user inputs
+  assert_is_a_number(dz)
+  if(!is.na(zmin))  assert_is_a_number(zmin)
   
   if (!is.na(zmin)) z <- z[z>zmin]
   

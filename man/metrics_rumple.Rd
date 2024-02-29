@@ -11,14 +11,15 @@ metrics_rumple(x, y, z, pixel_size, zmin = NA)
 
 \item{pixel_size}{pixel size}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-Same as in \code{lidR::rumple_index} - the calculated rumple index
+Same as \code{lidR::rumple_index} - the calculated rumple index
 }
 \description{
 A wrapper of the \code{lidR::rumple_index} function that allows to calculate rumple index without the need for CHM, and 
-can be used directly in the e.g. \code{grid_metrics} function. The function combines the two required steps, i.e. creating a surface model, and calculating rumple index, into one.
+can be used directly in the e.g. \code{pixel_metrics} function. The function combines the two required steps, 
+i.e. creating a surface model, and calculating rumple index, into one.
 Top surface is created using highest points within each pixel.
 }
 \examples{
@@ -29,5 +30,5 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_rumple(x = X, y = Y, z = Z, pixel_size = 1))
 
-m2 <- grid_metrics(las, ~metrics_rumple(x = X, y = Y, z = Z, pixel_size = 1), res = 40)
+m2 <- pixel_metrics(las, ~metrics_rumple(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
 }

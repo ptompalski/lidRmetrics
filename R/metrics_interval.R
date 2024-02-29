@@ -2,10 +2,10 @@
 #' 
 #' Percentage of points calculated for a set of horizontal layers. 
 #' 
-#' @param z Z coordinate of the point cloud
-#' @param zintervals Height intervals
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Percentage of points within each height interval
+#' @inheritParams metrics_basic
+#' @param zintervals Numeric. Height intervals
+#' 
+#' @return A list. Percentage of points within each height interval
 #' 
 #' @examples
 #' library(lidR)
@@ -15,10 +15,14 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_interval(z = Z))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_interval(z = Z), res = 40)
+#' m2 <- pixel_metrics(las, ~metrics_interval(z = Z, zintervals = c(0, 5, 10)), res = 20)
 
 #' @export
 metrics_interval <- function(z, zintervals=c(0, 0.15, 2, 5, 10, 20, 30), zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  assert_all_are_positive(zintervals)
   
   if (!is.na(zmin)) z <- z[z>zmin]
   

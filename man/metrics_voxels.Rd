@@ -14,7 +14,7 @@ metrics_voxels(x, y, z, vox_size = 1, zmin = NA)
 \item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
 }
 \description{
-A set of metrics calculated in a voxel space, designed to be used within the \code{grid_metrics} or \code{cloud_metrics} function from the \code{lidR}
+A set of metrics calculated in a voxel space, designed to be used within the \code{pixel_metrics} or \code{cloud_metrics} function from the \code{lidR}
 package. 
 For convenience, a point cloud is converted to a voxel space on the fly, without the need of using additional processing steps. 
 Note, that because of the additional computation required to convert a point cloud to voxels, calculating voxel-based metrics
@@ -41,7 +41,7 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1))
 
-m2 <- grid_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1), res = 40)
+m2 <- pixel_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1), res = 20)
 }
 \references{
 Lefsky, M. A., Cohen, W. B., Acker, S. A., Parker, G. G., Spies, T. A., & Harding, D. (1999). Lidar Remote Sensing of the Canopy Structure and Biophysical Properties of Douglas-Fir Western Hemlock Forests. Remote Sensing of Environment, 70(3), 339-361. doi:10.1016/S0034-4257(99)00052-8

@@ -7,15 +7,26 @@
 metrics_percabove(z, threshold = c(2, 5), zmin = NA)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{threshold}{Threshold height(s).}
+\item{threshold}{Numeric. Threshold height(s). Default = c(2, 5).}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-Percent of points above thresholds
+A list. Percent of points above mean and above threshold value(s).
 }
 \description{
-Calculates percentage of points above specified threshold heights (default = c(2, 5)) and mean height.
+Calculates percentage of points above specified threshold heights and mean height.
+}
+\examples{
+library(lidR)
+library(lidRmetrics)
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+m1 <- cloud_metrics(las, ~metrics_percabove(z = Z))
+
+m2 <- pixel_metrics(las, ~metrics_percabove(z = Z, zmin = 2), res = 20)
+
 }

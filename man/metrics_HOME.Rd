@@ -7,11 +7,11 @@
 metrics_HOME(z, i, zmin = NA)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
 \item{i}{Intensity}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
 Height of median energy

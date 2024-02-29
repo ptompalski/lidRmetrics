@@ -7,20 +7,20 @@
 metrics_kde(z, bw = 2, zmin = NA, npeaks = 4, ...)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{bw}{the smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
+\item{bw}{Numeric. Smoothing bandwidth of the \code{stats::density} function. Note that the default value (\code{bw=2}) does not 
 correspond to the default \code{bw} parameter in \code{stats::density}.}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 
-\item{npeaks}{Total number of recorded peaks. If the number of detected peaks is larger 
+\item{npeaks}{Numeric. Maximum number of recorded peaks. If the number of detected peaks is larger 
 than \code{npeaks}, only the peaks with highest density value are kept.}
 
 \item{...}{Other parameters of the \code{stats::density} function}
 }
 \value{
-Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
+A list. Number of peaks, elevation, and density value of each peak, distance (height difference) between peaks
 }
 \description{
 Kernel density estimation applied to the distribution of point cloud elevation (Z). KDE allows to 
@@ -36,7 +36,7 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_kde(z = Z))
 
-m2 <- grid_metrics(las, ~metrics_kde(z = Z), res = 20)
+m2 <- pixel_metrics(las, ~metrics_kde(z = Z), res = 20)
 }
 \references{
 McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis and Visualization. http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf

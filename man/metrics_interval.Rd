@@ -7,14 +7,14 @@
 metrics_interval(z, zintervals = c(0, 0.15, 2, 5, 10, 20, 30), zmin = NA)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zintervals}{Height intervals}
+\item{zintervals}{Numeric. Height intervals}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-Percentage of points within each height interval
+A list. Percentage of points within each height interval
 }
 \description{
 Percentage of points calculated for a set of horizontal layers.
@@ -27,5 +27,5 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_interval(z = Z))
 
-m2 <- grid_metrics(las, ~metrics_interval(z = Z), res = 40)
+m2 <- pixel_metrics(las, ~metrics_interval(z = Z, zintervals = c(0, 5, 10)), res = 20)
 }

@@ -3,12 +3,10 @@
 #' Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM). CHM is calculated on the fly
 #' to allow easy integration with e.g. \code{lidR::grid_metrics} function.
 #' 
-#' @param x,y,z  X, Y, Z coordinates of a point cloud
-#' @param pixel_size Pixel size of the CHM
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
+#' @inheritParams metrics_rumple
 #' @param chm_algorithm Function used to generate the CHM. By default \code{lidR::p2r(na.fill = lidR::knnidw())} is used.
-#' @param ... additional parameters passed to \code{ForestTools::glcm_img()} function
-#' @return GLCM metrics
+#' @param ... additional parameters passed to \code{ForestTools::glcm_img()}.
+#' @return A list. GLCM metrics.
 #'
 #' @details Function first uses the \code{lidR::grid_canopy()} algorithm to create a CHM. 
 #'  \code{ForestTools::glcm_img()} function is then used to calculate GLCM statistics (see package manual for details). 
@@ -23,10 +21,15 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
+#' m2 <- pixel_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
 
 
 metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, ...) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  assert_all_are_positive(pixel_size)
+  
   
   tex <- NULL #if glcm_img fails return empty result
   

@@ -11,9 +11,10 @@
 #' or extend the output to always include the same return numbers (useful when processing multiple datasets with 
 #' different return numbers). See examples.
 #' Default NULL - all return numbers are included. 
-#' @param z Z coordinate of the point cloud. Required only if \code{zmin} is used. 
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return number of points by each return number
+#' @inheritParams metrics_basic
+#' 
+#' @return A list. Number of points by each return number.
+#' 
 #' @export
 #' 
 #' @examples

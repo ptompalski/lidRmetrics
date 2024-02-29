@@ -7,17 +7,29 @@
 metrics_dispersion(z, dz = 1, zmin = NA)
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud}
+\item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{dz}{layer thickness to use when calculating entropy and VCI.}
+\item{dz}{Numeric. Layer thickness to use when calculating entropy and VCI.}
 
-\item{zmin}{Minimum height. If set, heights below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
-Interquartile distance, mean absolute deviation (MAD) around the mean and median, canopy relief ratio
+A list. Calculated metrics include:
+\itemize{
+\item \code{ziqr} interquartile distance
+\item \code{zMADmean} mean absolute deviation (MAD) around the mean
+\item \code{zMADmedian} mean absolute deviation (MAD) around the median
+\item \code{CRR} canopy relief ratio
+\item \code{zentropy} entropy
+\item \code{VCI} vertical complexity index
+
+}
 }
 \description{
-Metrics characterizing variation of point cloud heights.
+Metrics characterizing the dispersion of point heights
+}
+\details{
+When calculating \code{zentropy} and \code{VCI}, \code{z} values below 0 are removed.
 }
 \examples{
 library(lidR)
@@ -27,5 +39,5 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_dispersion(z = Z))
 
-m2 <- grid_metrics(las, ~metrics_dispersion(z = Z), res = 40)
+m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2), res = 20)
 }

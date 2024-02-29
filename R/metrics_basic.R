@@ -3,7 +3,7 @@
 #' Most common descriptive statistics used to characterize the vertical distribution of points in a point cloud.
 #' 
 #' @param z Z coordinate of the point cloud (point heights)
-#' @param zmin Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.
+#' @param zmin numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.
 #' @return A set of descriptive statistics including: total number of points, maximum height, minimum height, mean height, 
 #' variance of height, standard deviation of height, coefficient of variation of height, skewness and kurtosis of height.
 #' @export
@@ -38,6 +38,9 @@
 
 
 metrics_basic <- function(z, zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
   
   if (!is.na(zmin)) z <- z[z>zmin]
   

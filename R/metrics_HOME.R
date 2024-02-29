@@ -6,9 +6,8 @@
 #' HOME is calculated by identifying an elevation that splits the total intensity into two equal parts. Function is based
 #' on a similar metric implemented in LAStools.
 #' 
-#' @param z Z coordinate of the point cloud
+#' @inheritParams metrics_basic
 #' @param i Intensity 
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
 #' @return Height of median energy
 #' @export
 #' 
@@ -23,6 +22,9 @@
 #' m2 <- grid_metrics(las, ~metrics_HOME(z = Z, i = Intensity), res = 20)
 
 metrics_HOME <- function(z, i, zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
   
   D <- data.frame(z, i)
   

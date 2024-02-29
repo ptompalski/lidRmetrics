@@ -1,16 +1,30 @@
 #' Percent of points above threshold
 #' 
-#' Calculates percentage of points above specified threshold heights (default = c(2, 5)) and mean height.
+#' Calculates percentage of points above specified threshold heights and mean height.
 #' 
-#' @param z Z coordinate of the point cloud
-#' @param threshold Threshold height(s). 
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Percent of points above thresholds
+#' @inheritParams metrics_basic
+#' @param threshold Numeric. Threshold height(s). Default = c(2, 5).
+#' @return A list. Percent of points above mean and above threshold value(s).
+#' 
+#' @examples
+#' library(lidR)
+#' library(lidRmetrics)
+#' LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+#' las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+#' 
+#' m1 <- cloud_metrics(las, ~metrics_percabove(z = Z))
+#' 
+#' m2 <- pixel_metrics(las, ~metrics_percabove(z = Z, zmin = 2), res = 20)
+#' 
 #' @export
 
 
 
 metrics_percabove <- function(z, threshold = c(2,5), zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  assert_all_are_positive(threshold)
   
   if (!is.na(zmin)) z <- z[z>zmin]
   

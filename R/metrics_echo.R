@@ -7,11 +7,15 @@
 #' 
 #' @param ReturnNumber return number
 #' @param NumberOfReturns number of returns
-#' @param z Z coordinate of the point cloud. Required only if \code{zmin} is used. 
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return Number (n_first, n_intermediate, n_last, n_single, n_multiple) 
-#' and percentage (p_first, p_intermediate, p_last, p_single, p_multiple) of returns by each echo type.
-#' Ratio of First to Last, First to Intermediate, and Multiple to Single.
+#' @inheritParams metrics_basic
+#' 
+#' @return A list. Calculated metrics include:
+#' \itemize{
+#' \item Number of first (\code{n_first}), intermediate (\code{n_intermediate}), last (\code{n_last}), single (\code{n_single}), and multiple  (\code{n_multiple}) returns
+#' \item Proportion of first (\code{p_first}), intermediate (\code{p_intermediate}), last (\code{p_last}), single (\code{p_single}), and multiple  (\code{p_multiple}) returns
+#' \item Ratio of First to Last (\code{ratio_first_last}), First to Intermediate (\code{ratio_first_intermediate}), and Multiple to Single (\code{ratio_multiple_single}). 
+#' }
+#' 
 #' 
 #' @export
 #' 

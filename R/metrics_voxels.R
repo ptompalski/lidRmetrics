@@ -1,6 +1,6 @@
 #' Voxel-based metrics
 #' 
-#' A set of metrics calculated in a voxel space, designed to be used within the \code{grid_metrics} or \code{cloud_metrics} function from the \code{lidR}
+#' A set of metrics calculated in a voxel space, designed to be used within the \code{pixel_metrics} or \code{cloud_metrics} function from the \code{lidR}
 #' package. 
 #' For convenience, a point cloud is converted to a voxel space on the fly, without the need of using additional processing steps. 
 #' Note, that because of the additional computation required to convert a point cloud to voxels, calculating voxel-based metrics
@@ -33,11 +33,16 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1))
 #' 
-#' m2 <- grid_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1), res = 40)
+#' m2 <- pixel_metrics(las, ~metrics_voxels(x = X, y = Y, z = Z, vox_size = 1), res = 20)
 
 
 
 metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
+  
+  #check user inputs
+  assert_is_a_number(vox_size)
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  
   
   vn <- NA_integer_
   vFRall <- vFRcanopy <- NA_real_

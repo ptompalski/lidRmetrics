@@ -2,16 +2,35 @@
 #' 
 #' Calculates L-moments and L-moment ratios of point cloud heihts.
 #' 
-#' @param z Z coordinate of the point cloud
-#' @param zmin Minimum height. If set, heights below are ignored in calculations.
-#' @return L-moments and L-moment ratios
+#' @inheritParams metrics_basic
+#' @return A list. L-moments and L-moment ratios
+#' \itemize{
+#' \item L-moments: \code{L1}, \code{L2}, \code{L3}, \code{L4}
+#' \item L-moment ratios: \code{Lskew} (\code{L3}/\code{L2}), \code{Lkurt} (\code{L4}/\code{L2}), and \code{Lcoefvar} (\code{L2}/\code{L1})
+#' }
+#' 
+#' 
+#' @examples
+#' library(lidR)
+#' library(lidRmetrics)
+#' LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+#' las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+#' 
+#' m1 <- cloud_metrics(las, ~metrics_Lmoments(z = Z))
+#' 
+#' m2 <- pixel_metrics(las, ~metrics_Lmoments(z = Z, zmin = 2), res = 20)
+#' 
 #' @export
 
 metrics_Lmoments <- function(z, zmin=NA) {
+  
+  #check user inputs
+  if(!is.na(zmin))  assert_is_a_number(zmin)
+  
   # Lmoments - code from Murray Woods. Modified.
   
   if (!requireNamespace("Lmoments", quietly = TRUE)) {
-    stop("Package \"Lmoments\" needed for this function to work.",
+    stop("Package \"Lmoments\" is required to run metrics_Lmoments().",
          call. = FALSE)
   }
   

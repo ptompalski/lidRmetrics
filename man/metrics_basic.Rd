@@ -9,7 +9,7 @@ metrics_basic(z, zmin = NA)
 \arguments{
 \item{z}{Z coordinate of the point cloud (point heights)}
 
-\item{zmin}{Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
+\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
 }
 \value{
 A set of descriptive statistics including: total number of points, maximum height, minimum height, mean height, 

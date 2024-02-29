@@ -20,7 +20,7 @@ library(lidRmetrics)
 
 ## Example usage
 
-All of the functions in `lidRmetrics` are designed to be used with one of the *_metrics functions in the `lidR` package (e.g. `grid_metrics()`). 
+All of the functions in `lidRmetrics` are designed to be used with one of the *_metrics functions in the `lidR` package (e.g. `pixel_metrics()`). 
 
 For example:
 
@@ -33,9 +33,9 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_basic(Z))
 
-m2 <- grid_metrics(las, ~metrics_set1(Z), res = 20)
+m2 <- pixel_metrics(las, ~metrics_set1(Z), res = 20)
 
-m3 <- grid_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
+m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 ```
 
 ## List of metrics

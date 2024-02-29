@@ -44,28 +44,30 @@ metrics_basic <- function(z, zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  n <- length(z)
-  zmax <- max(z)
-  zminimum <- min(z) #this is to confirm if any threshold was applied
-  zmean <- mean(z)
-  zvar <- stats::var(z)
-  zsd <- stats::sd(z)
-  zcv <- zsd / zmean * 100
-  zskew <- (sum((z - zmean)^3)/n)/(sum((z - zmean)^2)/n)^(3/2)
-  zkurt <- n * sum((z - zmean)^4)/(sum((z - zmean)^2)^2)
-  
-  return(list(
-    n=n,
-    zmax=zmax,
-    zmin = zminimum,
-    zmean = zmean, 
-    zvar = zvar,
-    zsd = zsd, 
-    zcv = zcv,
-    zskew = zskew,
-    zkurt = zkurt
-  )
-  )
-  
+  if (length(z)>2) {
+    
+    n <- length(z)
+    zmax <- max(z)
+    zminimum <- min(z) #this is to confirm if any threshold was applied
+    zmean <- mean(z)
+    zvar <- stats::var(z)
+    zsd <- stats::sd(z)
+    zcv <- zsd / zmean * 100
+    zskew <- (sum((z - zmean)^3)/n)/(sum((z - zmean)^2)/n)^(3/2)
+    zkurt <- n * sum((z - zmean)^4)/(sum((z - zmean)^2)^2)
+    
+    return(list(
+      n=n,
+      zmax=zmax,
+      zmin = zminimum,
+      zmean = zmean, 
+      zvar = zvar,
+      zsd = zsd, 
+      zcv = zcv,
+      zskew = zskew,
+      zkurt = zkurt
+    )
+    )
+  }
 }
 

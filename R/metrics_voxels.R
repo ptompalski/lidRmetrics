@@ -51,43 +51,47 @@ metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
     
     vox <- lidRmetrics:::create_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
     
-    vox_filled <- vox[!is.na(vox$n),]
+    #if not null (i.e. if there were enough points to create voxels)
     
-    vn <- nrow(vox_filled)
+    if(!is.null(vox)) {
+      
+      vox_filled <- vox[!is.na(vox$n),]
+      
+      vn <- nrow(vox_filled)
+      
+      # FR (filling ratio, number of voxels with data to the number of all possible voxels)
+      vFRall <- nrow(vox_filled) / nrow(vox) * 100
+      
+      #FR under canopy (limit the filling ratio calculations with the top of the canopy)
+      vox2 <- vox %>%
+        dplyr::filter(!is.na(n)) %>%         #remove empty voxels
+        dplyr::group_by(X, Y) %>%             #for each X and Y...
+        dplyr::summarise(zmax = max(Z), .groups = "keep") %>%   #...find the highest voxel
+        dplyr::right_join(vox, by=c("X", "Y")) %>%            #combine with original voxel data
+        dplyr::filter(Z <= zmax)              #remove empty voxels above canopy
+      
+      vFRcanopy <- nrow(vox2[!is.na(vox2$n),])  / nrow(vox2) * 100
+      
+      mhist <- lidRmetrics:::metrics_voxstructure(z = vox_filled$Z, vox_size = vox_size)
+      
+      mlefsky <- lidRmetrics:::metrics_lefsky(x = vox$X, y = vox$Y, z = vox$Z, n=vox$n)
+      
+    } else {
+      
+      mhist <- lidRmetrics:::metrics_voxstructure(z = NA) #this is temporary fix
+      mlefsky <- lidRmetrics:::metrics_lefsky(x = NA, y = NA, z = NA, n=NA) #this is temporary fix
+      
+    }
     
-    # FR (filling ratio, number of voxels with data to the number of all possible voxels)
-    vFRall <- nrow(vox_filled) / nrow(vox) * 100
     
-    #FR under canopy (limit the filling ratio calculations with the top of the canopy)
-    vox2 <- vox %>%
-      dplyr::filter(!is.na(n)) %>%         #remove empty voxels
-      dplyr::group_by(X, Y) %>%             #for each X and Y...
-      dplyr::summarise(zmax = max(Z), .groups = "keep") %>%   #...find the highest voxel
-      dplyr::right_join(vox, by=c("X", "Y")) %>%            #combine with original voxel data
-      dplyr::filter(Z <= zmax)              #remove empty voxels above canopy
+    output = list(vn = vn,
+                  vFRall = vFRall,
+                  vFRcanopy = vFRcanopy)
     
-    vFRcanopy <- nrow(vox2[!is.na(vox2$n),])  / nrow(vox2) * 100
+    output <- c(output, mhist, mlefsky)
     
-    mhist <- lidRmetrics:::metrics_voxstructure(z = vox_filled$Z, vox_size = vox_size)
-    
-    mlefsky <- lidRmetrics:::metrics_lefsky(x = vox$X, y = vox$Y, z = vox$Z, n=vox$n)
-    
-  } else {
-    
-    mhist <- lidRmetrics:::metrics_voxstructure(z = NA) #this is temporary fix
-    mlefsky <- lidRmetrics:::metrics_lefsky(x = NA, y = NA, z = NA, n=NA) #this is temporary fix
-    
+    return(output)
   }
-  
-  
-  output = list(vn = vn,
-                vFRall = vFRall,
-                vFRcanopy = vFRcanopy)
-  
-  output <- c(output, mhist, mlefsky)
-  
-  return(output)
-  
   
 }
 

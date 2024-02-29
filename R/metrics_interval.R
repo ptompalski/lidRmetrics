@@ -22,7 +22,7 @@ metrics_interval <- function(z, zintervals=c(0, 0.15, 2, 5, 10, 20, 30), zmin=NA
   
   #check user inputs
   if(!is.na(zmin))  assert_is_a_number(zmin)
-  assert_all_are_positive(zintervals)
+  assert_all_are_non_negative(zintervals)
   
   if (!is.na(zmin)) z <- z[z>zmin]
   

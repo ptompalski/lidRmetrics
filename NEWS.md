@@ -6,6 +6,7 @@
 
 1.  New function `metrics_echo()`
 2.  New function `metrics_echo2()`
+3.  General improvements and bug fixes.
 
 ### Enhancements
 
@@ -16,3 +17,5 @@
 
 - Examples are now provided for all functions.
 - All examples were updated - `lidR::grid_metrics()` function replaced with `lidR::pixel_metrics()`
+- Fixed issue with `metrics_voxels()` failing when the `zmin` parameter was used #3 and #11
+- Fixed issue with warnings being generated when using `metrics_basic` #12

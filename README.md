@@ -3,7 +3,24 @@
 
 # lidRmetrics
 
-Additional point cloud metrics to use with \*\_metric functions in lidR.
+Additional point cloud metrics for use with \*\_metric functions in the
+`lidR` package.
+
+The package serves as a companion to the `lidR` package and offers a
+variety of functions for calculating different types of point cloud
+metrics. These include `metrics_basic()` for basic information about the
+point cloud, `metrics_percentiles()` for height percentiles,
+`metrics_percabove()` and `metrics_dispersion()` for characterizing the
+vertical structure. Additionally, `metrics_echo()` and `metrics_echo2()`
+provide information on the number and proportion of different return
+types, while `metrics_interval()` calculates the percentage of points by
+horizontal layers. More complex metrics such as `metrics_kde` and
+`metrics_voxels()` are also included. A comprehensive list of metrics
+and their corresponding functions can be found in the table below.
+
+These individual functions serve as building blocks that can be combined
+to create various sets of metrics. The package includes three examples
+of such metric sets.
 
 ## Installation
 

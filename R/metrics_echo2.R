@@ -65,7 +65,7 @@ metrics_echo2 <- function(ReturnNumber, KeepReturns=NULL, z=NULL, zmin=NA) {
     PointCounts <- merge(PointCounts, PointCounts_max, by="ReturnNumber", all.y = T)
   }
   
-  PointCounts$ReturnNumber <- paste0("return_",PointCounts$ReturnNumber,"_count")
+  PointCounts$ReturnNumber <- paste0("n_return_",PointCounts$ReturnNumber)
   
   #format output
   PointCounts.list <- as.list(PointCounts$Freq)

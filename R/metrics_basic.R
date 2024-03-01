@@ -71,3 +71,7 @@ metrics_basic <- function(z, zmin=NA) {
   }
 }
 
+#' @rdname metrics_basic
+#' @export
+.metrics_basic = ~metrics_basic(Z)
+

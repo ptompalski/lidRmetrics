@@ -48,22 +48,6 @@ create_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
 
 ### vertical rumple and other histogram variability metrics ####
 # to be used with metrics_voxels()
-# metrics_voxstructure <- function(z, vox_size) {
-#   
-#   vzrumple <- vzsd <- vzcv <- NA_real_
-#   
-#   if (length(z) > 2) {
-#     
-#     from=min(z, na.rm=T)
-#     to=max(z, na.rm=T)
-#     
-#   }
-#   
-#   output <- list(from=from, to=to)
-#   return(output)
-# }
-
-
 
 metrics_voxstructure <- function(z, vox_size) {
 

@@ -151,7 +151,7 @@ m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
    <td style="text-align:left;">  </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> ratio_first_last, ratio_first_intermediate, ratio_multiple_single </td>
+   <td style="text-align:left;"> ratio_last_first, ratio_intermediate_first, ratio_multiple_single </td>
    <td style="text-align:left;"> Ratios of return counts </td>
    <td style="text-align:left;"> metrics_echo </td>
    <td style="text-align:left;">  </td>

@@ -70,9 +70,9 @@ metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
   p_multiple <- n_multiple / n * 100
   
   #ratios
-  ratio_first_last = n_first / n_last
-  ratio_first_intermediate = n_first / n_intermediate
-  ratio_multiple_single = n_multiple / n_single
+  if(!is.na(n_first) & !is.na(n_last))  {ratio_first_last = n_first / n_last} else ratio_first_last=NA_real_
+  if(!is.na(n_first) & !is.na(n_intermediate)) {ratio_first_intermediate = n_first / n_intermediate} else ratio_first_intermediate = NA_real_
+  if(!is.na(n_multiple) & !is.na(n_single)) {ratio_multiple_single = n_multiple / n_single} else ratio_multiple_single=NA_real_
   
   out <- list(n_first = n_first,
               n_intermediate = n_intermediate,

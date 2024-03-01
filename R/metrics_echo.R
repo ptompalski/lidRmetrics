@@ -3,7 +3,7 @@
 #' Based on the return number and number of returns, point cloud returns are classified into different echo types. Two different
 #' classification routines are applied. Under the first classification routine returns are classified into First, Intermediate, and Last. 
 #' Under the second classification routine returns are classified into Single or Multiple. Function then calculates point counts and proportions 
-#' by each echo type. Ratios of First to Last, First to Intermediate, and Multiple to Single, are also calculated.
+#' by each echo type. Ratios of Last to First, Intermediate to First, and Multiple to Single, are also calculated.
 #' 
 #' @param ReturnNumber return number
 #' @param NumberOfReturns number of returns
@@ -13,7 +13,7 @@
 #' \itemize{
 #' \item Number of first (\code{n_first}), intermediate (\code{n_intermediate}), last (\code{n_last}), single (\code{n_single}), and multiple  (\code{n_multiple}) returns
 #' \item Proportion of first (\code{p_first}), intermediate (\code{p_intermediate}), last (\code{p_last}), single (\code{p_single}), and multiple  (\code{p_multiple}) returns
-#' \item Ratio of First to Last (\code{ratio_first_last}), First to Intermediate (\code{ratio_first_intermediate}), and Multiple to Single (\code{ratio_multiple_single}). 
+#' \item Ratio of Last to First (\code{ratio_last_first}), Intermediate to First (\code{ratio_intermediate_first}), and Multiple to Single (\code{ratio_multiple_single}). 
 #' }
 #' 
 #' 
@@ -45,49 +45,69 @@ metrics_echo <- function(ReturnNumber, NumberOfReturns, z=NULL, zmin=NA) {
     
   }
   
+  # prepare output 
+  out <- list(n_first = NA_integer_,
+              n_intermediate = NA_integer_,
+              n_last = NA_integer_,
+              n_single = NA_integer_,
+              n_multiple = NA_integer_,
+              p_first = NA_real_, 
+              p_intermidiate = NA_real_, 
+              p_last = NA_real_, 
+              p_single = NA_real_, 
+              p_multiple = NA_real_,
+              ratio_last_first = NA_real_,
+              ratio_intermediate_first = NA_real_,
+              ratio_multiple_single = NA_real_)
   
-  filter <- ReturnNumber > 0 & NumberOfReturns > 0 & ReturnNumber <= NumberOfReturns
-  ReturnNumber <- ReturnNumber[filter]
-  NumberOfReturns <- NumberOfReturns[filter]
-  
-  n = length(ReturnNumber)
-  
-  n_first <- sum(ReturnNumber == 1)
-  p_first <- n_first / n * 100
-  
-  n_intermediate <- sum(ReturnNumber > 1 & ReturnNumber < NumberOfReturns)
-  p_intermediate <- n_intermediate / n * 100
-  
-  n_last <- sum(ReturnNumber == NumberOfReturns & ReturnNumber > 1)
-  p_last <- n_last / n * 100
-  
-  
-  #single/multiple
-  n_single <- sum(NumberOfReturns==1)
-  p_single <- n_single / n * 100
-  
-  n_multiple <- sum(NumberOfReturns > 1)
-  p_multiple <- n_multiple / n * 100
-  
-  #ratios
-  if(!is.na(n_first) & !is.na(n_last))  {ratio_first_last = n_first / n_last} else ratio_first_last=NA_real_
-  if(!is.na(n_first) & !is.na(n_intermediate)) {ratio_first_intermediate = n_first / n_intermediate} else ratio_first_intermediate = NA_real_
-  if(!is.na(n_multiple) & !is.na(n_single)) {ratio_multiple_single = n_multiple / n_single} else ratio_multiple_single=NA_real_
-  
-  out <- list(n_first = n_first,
-              n_intermediate = n_intermediate,
-              n_last = n_last,
-              n_single = n_single,
-              n_multiple = n_multiple,
-              p_first = p_first, 
-              p_intermidiate = p_intermediate, 
-              p_last = p_last, 
-              p_single = p_single, 
-              p_multiple = p_multiple,
-              ratio_first_last = ratio_first_last,
-              ratio_first_intermediate = ratio_first_intermediate,
-              ratio_multiple_single = ratio_multiple_single)
+  if (length(ReturnNumber)!=0 & length(NumberOfReturns)!=0) { #check if empty
+    
+    filter <- ReturnNumber > 0 & NumberOfReturns > 0 & ReturnNumber <= NumberOfReturns
+    ReturnNumber <- ReturnNumber[filter]
+    NumberOfReturns <- NumberOfReturns[filter]
+    
+    n = length(ReturnNumber)
+    
+    n_first <- sum(ReturnNumber == 1)
+    p_first <- n_first / n * 100
+    
+    n_intermediate <- sum(ReturnNumber > 1 & ReturnNumber < NumberOfReturns)
+    p_intermediate <- n_intermediate / n * 100
+    
+    n_last <- sum(ReturnNumber == NumberOfReturns & ReturnNumber > 1)
+    p_last <- n_last / n * 100
+    
+    
+    #single/multiple
+    n_single <- sum(NumberOfReturns==1)
+    p_single <- n_single / n * 100
+    
+    n_multiple <- sum(NumberOfReturns > 1)
+    p_multiple <- n_multiple / n * 100
+    
+    #ratios
+    if(n_first>0)  {ratio_last_first = n_last / n_first } else ratio_last_first=NA_real_
+    if(n_first>0) {ratio_intermediate_first = n_intermediate / n_first} else ratio_intermediate_first = NA_real_
+    if(n_single>0) {ratio_multiple_single = n_multiple / n_single} else ratio_multiple_single=NA_real_
+    
+    out <- list(n_first = n_first,
+                n_intermediate = n_intermediate,
+                n_last = n_last,
+                n_single = n_single,
+                n_multiple = n_multiple,
+                p_first = p_first, 
+                p_intermidiate = p_intermediate, 
+                p_last = p_last, 
+                p_single = p_single, 
+                p_multiple = p_multiple,
+                ratio_last_first = ratio_last_first,
+                ratio_intermediate_first = ratio_intermediate_first,
+                ratio_multiple_single = ratio_multiple_single)
+  }
   
   return(out)
 }
 
+#' @rdname metrics_echo
+#' @export
+.metrics_echo = ~metrics_echo(ReturnNumber, NumberOfReturns)

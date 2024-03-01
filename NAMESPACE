@@ -2,6 +2,7 @@
 
 export("%>%")
 export(.metrics_basic)
+export(.metrics_dispersion)
 export(.metrics_echo)
 export(metrics_HOME)
 export(metrics_Lmoments)

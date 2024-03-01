@@ -39,26 +39,44 @@ metrics_dispersion <- function(z, dz=1, zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  m = list(
+  # prepare output 
+  out <- list(
+    ziqr=NA_real_,
+    zMADmean=NA_real_,
+    zMADmedian=NA_real_,
+    CRR=NA_real_,
+    zentropy=NA_real_,
+    VCI=NA_real_
+  )
+  
+  
+  if (length(z)!=0) { #check if z is empty
     
-    ziqr = IQR(z), # Interquartile distance 
-    
+    out$ziqr = IQR(z) # Interquartile distance 
     
     # AAD (Average Absolute Deviation):
     # https://en.wikipedia.org/wiki/Average_absolute_deviation
     
     #MAD around the mean
-    zMADmean = mean(abs(z - mean(z))),
+    out$zMADmean = mean(abs(z - mean(z)))
     
     # MAD around the median - Median absolute deviation (median of the absolute deviations from the data's median)
-    zMADmedian = median(abs(z - median(z))),
+    out$zMADmedian = median(abs(z - median(z)))
     
     # Canopy relief ratio ((mean - min) / (max – min))
-    CRR = ((mean(z) - min(z)) / (max(z) - min(z))),
+    out$CRR = ((mean(z) - min(z)) / (max(z) - min(z)))
     
-    zentropy = entropy(z[z>0], dz), #forcing z to be always above 0, otherwise entropy does not work
+    z1 <- z[z>0] # for entropy and VCI forcing z to be always above 0, otherwise function do not work
     
-    VCI = VCI(z[z>0], zmax = max(z), by = dz) #forcing z to be always above 0, otherwise entropy does not work
-  )
-  return(m)
+    if (length(z1)!=0) { #check if z1 is empty
+      out$zentropy = entropy(z1, dz)
+      out$VCI = VCI(z1, zmax = max(z1), by = dz)
+    }
+  }
+  
+  return(out)
 }
+
+#' @rdname metrics_echo
+#' @export
+.metrics_dispersion = ~metrics_dispersion(Z)

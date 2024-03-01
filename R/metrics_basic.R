@@ -44,14 +44,14 @@ metrics_basic <- function(z, zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  if (length(z)>2) {
+  # if (length(z)>2) {
     
     n <- length(z)
-    zmax <- max(z)
-    zminimum <- min(z) #this is to confirm if any threshold was applied
-    zmean <- mean(z)
-    zvar <- stats::var(z)
-    zsd <- stats::sd(z)
+    zmax <- max(z, na.rm = T)
+    zminimum <- min(z, na.rm = T) #this is to confirm if any threshold was applied
+    zmean <- mean(z, na.rm = T)
+    zvar <- stats::var(z, na.rm = T)
+    zsd <- stats::sd(z, na.rm = T)
     zcv <- zsd / zmean * 100
     zskew <- (sum((z - zmean)^3)/n)/(sum((z - zmean)^2)/n)^(3/2)
     zkurt <- n * sum((z - zmean)^4)/(sum((z - zmean)^2)^2)
@@ -68,7 +68,7 @@ metrics_basic <- function(z, zmin=NA) {
       zkurt = zkurt
     )
     )
-  }
+  # }
 }
 
 #' @rdname metrics_basic

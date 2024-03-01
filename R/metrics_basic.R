@@ -44,31 +44,37 @@ metrics_basic <- function(z, zmin=NA) {
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  # if (length(z)>2) {
+  # prepare output 
+  out <- list(
+    n=NA_integer_,
+    zmax=NA_real_,
+    zmin = NA_real_,
+    zmean = NA_real_, 
+    zvar = NA_real_,
+    zsd = NA_real_, 
+    zcv = NA_real_,
+    zskew = NA_real_,
+    zkurt = NA_real_
+  )
+  
+  
+  if (length(z)!=0) { #check if z is empty
+
+    out$n <- length(z)
+    out$zmax <- max(z)
+    out$zmin <- min(z) #this is to confirm if any threshold was applied
+    out$zmean <- mean(z)
+    out$zvar <- stats::var(z)
+    out$zsd <- stats::sd(z)
+    out$zcv <- out$zsd / out$zmean * 100
+    out$zskew <- (sum((z - out$zmean)^3)/out$n)/(sum((z - out$zmean)^2)/out$n)^(3/2)
+    out$zkurt <- out$n * sum((z - out$zmean)^4)/(sum((z - out$zmean)^2)^2)
     
-    n <- length(z)
-    zmax <- max(z, na.rm = T)
-    zminimum <- min(z, na.rm = T) #this is to confirm if any threshold was applied
-    zmean <- mean(z, na.rm = T)
-    zvar <- stats::var(z, na.rm = T)
-    zsd <- stats::sd(z, na.rm = T)
-    zcv <- zsd / zmean * 100
-    zskew <- (sum((z - zmean)^3)/n)/(sum((z - zmean)^2)/n)^(3/2)
-    zkurt <- n * sum((z - zmean)^4)/(sum((z - zmean)^2)^2)
-    
-    return(list(
-      n=n,
-      zmax=zmax,
-      zmin = zminimum,
-      zmean = zmean, 
-      zvar = zvar,
-      zsd = zsd, 
-      zcv = zcv,
-      zskew = zskew,
-      zkurt = zkurt
-    )
-    )
-  # }
+  }
+
+  return(out)
+
+  
 }
 
 #' @rdname metrics_basic

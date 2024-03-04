@@ -1,0 +1,107 @@
+---
+title: "Custom metric sets"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Custom_metric_sets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, warning=F}
+library(lidR)
+library(lidRmetrics)
+```
+
+The lidRmetrics package is designed to provide a collection of functions for calculating point cloud metrics. Each function is specialized in computing metrics that characterize a specific aspect of the point cloud structure. This modular approach allows users to select and combine functions to create a custom set of metrics tailored to their specific needs.
+
+The package includes three sets of predefined metrics, but users are encouraged to develop their own. The following examples demonstrate how to do this.
+
+We'll begin with a simple example by combining metrics_basic() and metrics_percentiles():
+
+```{r}
+my_metric_set <- function(z) {
+  
+  m_basic   <- lidRmetrics::metrics_basic(z=z)
+  m_prctls  <- lidRmetrics::metrics_percentiles(z=z)
+  
+  m <- c(m_basic, m_prctls)
+  
+  return(m)
+}
+```
+
+It's important to note that each function is explicitly called with the lidRmetrics package prefix. This practice is crucial when processing data on multiple cores using the future package.
+
+Let's test the function and examine the outputs:
+
+```{r}
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+my_metrics <- pixel_metrics(las, ~my_metric_set(Z), res = 20)
+
+head(as.data.frame(my_metrics),1)
+```
+
+
+Now, let's consider a more complex scenario. Suppose we want to calculate metrics_basic() and metrics_percentiles(), but for each metric, we want to consider two different scenarios: with and without a height cutoff of 2 meters (zmin). We can easily adapt the previous function to calculate both variants of each metric:
+
+```{r}
+
+my_metric_set <- function(z) {
+  
+  # set the height threshold
+  zmin <- 2
+  
+  # define the text that will be appended to metric names calculated with height threshold. This is to avoid duplicated metric names.
+  zmin_label <- paste0(".above",zmin)
+  
+  # metrics_basic without height threshold
+  m_basic   <- lidRmetrics::metrics_basic(z=z)
+  
+  # metrics_basic with height threshold. To make metric names unique, `zmin_label` is appended.
+  m_basic_2   <- lidRmetrics::metrics_basic(z=z, zmin=zmin)
+  names(m_basic_2) <- paste0(names(m_basic_2),zmin_label)
+  
+  # the same for metrics_percentiles
+  m_prctls  <- lidRmetrics::metrics_percentiles(z=z)
+  m_prctls_2  <- lidRmetrics::metrics_percentiles(z=z, zmin=zmin)
+  names(m_prctls_2) <- paste0(names(m_prctls_2),zmin_label)
+  
+  m <- c(m_basic, m_prctls, m_basic_2, m_prctls_2)
+  return(m)
+}
+
+```
+
+The output of the function above will look as follows:
+```{r, echo=F}
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+
+my_metrics <- pixel_metrics(las, ~my_metric_set(Z), res = 20)
+```
+
+```{r}
+head(as.data.frame(my_metrics),1)
+```
+
+
+Finally, metrics can be calculated for different echo types (e.g., for first returns only, for all returns, etc.). This can be achieved using the built-in functionality of the lidR package:
+
+```{r}
+my_metrics <- pixel_metrics(las, ~my_metric_set(Z), by_echo=c("first", "all"))
+```
+
+The output will include the results of metrics_basic() and metrics_percentiles(), calculated for the following scenarios: all returns with no height threshold, all returns above 2 meters, first returns only with no height threshold, and finally, first returns above 2 meters. Since point cloud subsetting is performed during metric calculation, it is important to avoid applying any filtering when loading the point cloud data or creating the catalog.
+
+```{r}
+head(as.data.frame(my_metrics),1)
+```

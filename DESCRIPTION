@@ -21,5 +21,8 @@ Imports:
     glue
 Suggests:
     Lmoments,
-    ForestTools (>= 0.2.5)
+    ForestTools (>= 0.2.5),
+    knitr,
+    rmarkdown
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr

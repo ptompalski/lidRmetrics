@@ -77,6 +77,6 @@ metrics_dispersion <- function(z, dz=1, zmin=NA) {
   return(out)
 }
 
-#' @rdname metrics_echo
+#' @rdname metrics_dispersion
 #' @export
 .metrics_dispersion = ~metrics_dispersion(Z)

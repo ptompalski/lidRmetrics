@@ -6,7 +6,8 @@
 
 1.  New function `metrics_echo()`
 2.  New function `metrics_echo2()`
-3.  General improvements and bug fixes.
+3.  A new vignette demonstrating how to create custom metric sets.
+4.  General improvements and bug fixes.
 
 ### Enhancements
 

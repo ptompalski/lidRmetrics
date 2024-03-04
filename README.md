@@ -56,14 +56,14 @@ m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 
 ## List of metrics
 
-### `metrics_basic()` - simple descriptive statistics
+#### Simple descriptive statistics - `metrics_basic()`
 
 - `n` - total number of returns
 - `zmin`, `zmax`, `zmean`, `zvar`, `zsd`, `zcv`, `zskew`, `zkurt` -
   elevation maximum, minimum, mean, standard deviation, coeficient of
   variation, skewness, and kurtosis
 
-### `metrics_percentiles()` - height percentiles
+#### Height percentiles - `metrics_percentiles()`
 
 - `zq1`
 - `zq5`
@@ -73,7 +73,7 @@ m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 - `zq95`,
 - `zq99`
 
-### `metrics_percabove()` - proportion of returns above threshold height
+#### Proportion of returns above threshold height - `metrics_percabove()`
 
 Proportion of returns above a user-defined threshold. By default,
 percent of returns above mean elevation, above 2 and 5 m are calculated.
@@ -83,7 +83,7 @@ percent of returns above mean elevation, above 2 and 5 m are calculated.
 - `pzabove5`
 - `pzabove*`
 
-### `metrics_dispersion()` - vertical structure
+#### Vertical structure - `metrics_dispersion()`
 
 - `ziqr` - interquartile distance
 - `zMADmean`, `zMADmedian` - mean absolute deviation (MAD) from the mean
@@ -96,7 +96,7 @@ see: van Ewijk, K. Y., Treitz, P. M., & Scott, N. A. (2011).
 Characterizing Forest Succession in Central Ontario using LAS-derived
 Indices. Photogrammetric Engineering and Remote Sensing, 77(3), 261-269
 
-### `metrics_canopydensity()` - cumalative point density
+#### Cumulative point density - `metrics_canopydensity()`
 
 Canopy density metrics as defined by Woods et al. 2008. Elevation range
 is divided into 10 equal intervals, and the cumulative proportion of
@@ -116,18 +116,18 @@ See: M. Woods, K. Lim, and P. Treitz. Predicting forest stand variables
 from LiDAR data in the Great Lakes – St. Lawrence forest of Ontario. The
 Forestry Chronicle. 84(6): 827-839.
 
-### `metrics_Lmoments()` - L-moments
+#### L-moments metrics - `metrics_Lmoments()`
 
 - `L1`, `L2`, `L3`, `L4` - 1st, 2nd, 3rd, and 4th L-moment
 - `Lskew` - L-moment skewness
 - `Lkurt` - L-moment kurtosis
 - `Lcoefvar` - L-moment coefficient of variation
 
-### `metrics_lad()` - metrics based on leaf area density
+#### Metrics based on leaf area density - `metrics_lad()`
 
 `lad_max`, `lad_mean`, `lad_cv`, `lad_min`, `lad_sum`
 
-### `metrics_interval()` - interval metrics
+#### Interval metrics - `metrics_interval()`
 
 Interval metrics - proportion of returns between specified elevation
 intervals. Default intervals are: 0, 0.15, 2, 5, 10, 20, and 30.
@@ -141,7 +141,7 @@ intervals. Default intervals are: 0, 0.15, 2, 5, 10, 20, and 30.
 - `pz_20.30`
 - `pz_above_30` - proportion of returns above 30
 
-### `metrics_echo()` - number and proportion of returns by echo types
+#### Number and proportion of returns by echo types - `metrics_echo()`
 
 - `n_first`, `n_intermediate`, `n_last`, `n_single`, `n_multiple` -
   Number of returns by echo types (First, Intermediate, Last; and
@@ -152,12 +152,12 @@ intervals. Default intervals are: 0, 0.15, 2, 5, 10, 20, and 30.
 - `ratio_last_first`, `ratio_intermediate_first`,
   `ratio_multiple_single` - Ratios of return counts
 
-### `metrics_echo2()` - number of points by return number
+#### Number of points by return number - `metrics_echo2()`
 
 `n_return_1` - total number of 1st returns `n_return_2` - total number
 of 2nd returns `n_return_*` - total number of \* returns
 
-### `metrics_rumple()` - a wrapper function for the rumple metric
+#### A wrapper function for the rumple metric - `metrics_rumple()`
 
 A wrapper of the `lidR::rumple_index()` function that allows to
 calculate rumple index without the need for CHM, and can be used
@@ -168,7 +168,7 @@ within each pixel.
 
 - `rumple`
 
-### `metrics_voxels()` - metrics calculated using voxels
+#### Metrics calculated using voxels - `metrics_voxels()`
 
 A set of metrics calculated in a voxel space. For convenience, a point
 cloud is converted to a voxel space on the fly, without the need of
@@ -193,7 +193,7 @@ and Biophysical Properties of Douglas-Fir Western Hemlock Forests.
 Remote Sensing of Environment, 70(3), 339–361.
 <doi:10.1016/S0034-4257(99)00052-8>
 
-### `metrics_kde()` - kernel density estimation
+#### Metrics based on kernel density estimation - `metrics_kde()`
 
 Kernel density estimation (KDE) applied to the distribution of point
 cloud elevation (Z). KDE allows to create a probability density function
@@ -218,14 +218,14 @@ See: McGaughey, R.J., 2021. FUSION/LDV: Software for LIDAR Data Analysis
 and Visualization.
 <http://forsys.cfr.washington.edu/software/fusion/FUSION_manual.pdf>
 
-### `metrics_HOME()` - height of median energy
+#### Height of median energy - `metrics_HOME()`
 
 - `HOME` - calculations based on LAStools’ implementation of the HOME
   metric.
 
 See: <http://lastools.org/download/lascanopy_README.txt>
 
-### `metrics_texture()` - GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM)
+#### GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM) - `metrics_texture()`
 
 `glcm_mean`, `glcm_variance`, `glcm_autoCorrelation`,
 `glcm_cProminence`, `glcm_cShade`, `glcm_cTendency`, `glcm_contrast`,

@@ -29,7 +29,7 @@
 #' 
 #' m1 <- cloud_metrics(las, ~metrics_dispersion(z = Z))
 #' 
-#' m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2,  zmax = 30), res = 20)
+#' m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2, zmax = 30), res = 20)
 
 
 metrics_dispersion <- function(z, dz=1, zmin=NA, zmax=NA) {

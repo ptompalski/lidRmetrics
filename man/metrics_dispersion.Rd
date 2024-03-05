@@ -48,6 +48,6 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_dispersion(z = Z))
 
-m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2,  zmax = 30), res = 20)
+m2 <- pixel_metrics(las, ~metrics_dispersion(z = Z, dz = 2, zmax = 30), res = 20)
 }
 \keyword{datasets}

@@ -69,3 +69,8 @@ metrics_Lmoments <- function(z, zmin=NA) {
   }
   return(lmom)
 }
+
+
+#' @rdname metrics_Lmoments
+#' @export
+.metrics_Lmoments = ~metrics_Lmoments(Z)

@@ -45,3 +45,8 @@ metrics_interval <- function(z, zintervals=c(0, 0.15, 2, 5, 10, 20, 30), zmin=NA
   
   return(as.list(z_prop))
 }
+
+
+#' @rdname metrics_interval
+#' @export
+.metrics_interval = ~metrics_interval(Z)

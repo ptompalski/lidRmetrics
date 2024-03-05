@@ -43,6 +43,9 @@ metrics_HOME <- function(z, i, zmin=NA) {
 }
 
 
+#' @rdname metrics_HOME
+#' @export
+.metrics_HOME = ~metrics_HOME(Z, Intensity)
 
 
 

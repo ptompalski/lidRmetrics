@@ -48,6 +48,12 @@ metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10
 
 #' @rdname metrics_sets
 #' @export
+.metrics_set1 = ~metrics_set1(Z)
+
+
+
+#' @rdname metrics_sets
+#' @export
 metrics_set2  <- function(x, y, z, 
                           zmin=NA, 
                           threshold = c(2,5), 
@@ -66,6 +72,13 @@ metrics_set2  <- function(x, y, z,
   return(m)
   
 }
+
+#' @rdname metrics_sets
+#' @export
+.metrics_set2 = ~metrics_set2(X,Y,Z)
+
+
+
 
 
 #' @rdname metrics_sets
@@ -93,3 +106,8 @@ metrics_set3  <- function(x, y, z, i,
   return(m)
   
 }
+
+#' @rdname metrics_sets
+#' @export
+.metrics_set3 = ~metrics_set3(X,Y,Z,Intensity,ReturnNumber,NumberOfReturns)
+

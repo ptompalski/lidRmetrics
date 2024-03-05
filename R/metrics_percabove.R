@@ -45,3 +45,6 @@ metrics_percabove <- function(z, threshold = c(2,5), zmin=NA) {
 }
 
 
+#' @rdname metrics_percabove
+#' @export
+.metrics_percabove = ~metrics_percabove(Z)

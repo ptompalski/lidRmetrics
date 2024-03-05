@@ -95,6 +95,9 @@ metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
   
 }
 
+#' @rdname metrics_voxels
+#' @export
+.metrics_voxels = ~metrics_voxels(X,Y,Z,1)
 
 
 

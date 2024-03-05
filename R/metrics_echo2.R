@@ -76,3 +76,6 @@ metrics_echo2 <- function(ReturnNumber, KeepReturns=NULL, z=NULL, zmin=NA) {
 }
 
 
+#' @rdname metrics_echo2
+#' @export
+.metrics_echo2 = ~metrics_echo2(ReturnNumber)

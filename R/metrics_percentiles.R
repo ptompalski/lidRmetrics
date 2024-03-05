@@ -35,3 +35,8 @@ metrics_percentiles <- function(z, zmin=NA) {
   
   return(zq)
 }
+
+
+#' @rdname metrics_percentiles
+#' @export
+.metrics_percentiles = ~metrics_percentiles(Z)

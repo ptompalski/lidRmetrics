@@ -69,5 +69,8 @@ metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, 
   return(as.list(tex))
 }
 
+#' @rdname metrics_texture
+#' @export
+.metrics_texture = ~metrics_texture(X,Y,Z,1)
 
 

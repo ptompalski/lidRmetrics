@@ -151,3 +151,8 @@ get_peaks <- function(d) {
   
 }
 
+
+
+#' @rdname metrics_kde
+#' @export
+.metrics_kde = ~metrics_kde(Z)

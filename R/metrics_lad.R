@@ -60,5 +60,8 @@ metrics_lad <- function(z, zmin=NA, dz = 1, k = 0.5, z0 = 2) {
   return(lad_metrics)
 }
 
+#' @rdname metrics_lad
+#' @export
+.metrics_lad = ~metrics_lad(Z)
 
 

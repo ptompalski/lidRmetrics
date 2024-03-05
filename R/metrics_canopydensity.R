@@ -40,3 +40,6 @@ metrics_canopydensity <- function(z, interval_count=10, zmin=NA) { #after Woods 
 }
 
 
+#' @rdname metrics_canopydensity
+#' @export
+.metrics_canopydensity = ~metrics_canopydensity(Z)

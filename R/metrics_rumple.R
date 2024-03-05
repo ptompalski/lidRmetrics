@@ -47,3 +47,8 @@ metrics_rumple <- function(x, y, z, pixel_size, zmin=NA) {
   return(list(rumple=r))
   
 }
+
+
+#' @rdname metrics_rumple
+#' @export
+.metrics_rumple = ~metrics_rumple(X,Y,Z,1)

@@ -21,3 +21,5 @@
 - All examples were updated - `lidR::grid_metrics()` function replaced with `lidR::pixel_metrics()`
 - Fixed issue with `metrics_voxels()` failing when the `zmin` parameter was used #3 and #11
 - Fixed issue with warnings being generated when using `metrics_basic` #12
+- Fixed issue with warnings being generated when using `metrics_dispersion` #13
+- VCI calculations were incorrect. VCI now requires zmax parameter to be calculated.

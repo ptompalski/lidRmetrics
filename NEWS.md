@@ -8,6 +8,7 @@
 2.  New function `metrics_echo2()`
 3.  A new vignette demonstrating how to create custom metric sets.
 4.  General improvements and bug fixes.
+5.  Each `metrics_*()` function gained a convenient shortcut version: `.metrics_*` 
 
 ### Enhancements
 

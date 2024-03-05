@@ -51,7 +51,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">metrics_dispersion</span><span class="op">(</span><span class="va">z</span>, dz <span class="op">=</span> <span class="fl">1</span>, zmin <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">metrics_dispersion</span><span class="op">(</span><span class="va">z</span>, dz <span class="op">=</span> <span class="fl">1</span>, zmin <span class="op">=</span> <span class="cn">NA</span>, zmax <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">.metrics_dispersion</span></span></code></pre></div>
     </div>
@@ -73,6 +73,10 @@
 <dt>zmin</dt>
 <dd><p>numeric. Minimum <code>z</code> value. If set, <code>z</code> values (heights) below are ignored in calculations.</p></dd>
 
+
+<dt>zmax</dt>
+<dd><p>Numeric. Maximum elevation for an entropy normalized to zmax.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -83,7 +87,7 @@
 <li><p><code>zMADmedian</code> mean absolute deviation (MAD) around the median</p></li>
 <li><p><code>CRR</code> canopy relief ratio</p></li>
 <li><p><code>zentropy</code> entropy</p></li>
-<li><p><code>VCI</code> vertical complexity index</p></li>
+<li><p><code>VCI</code> vertical complexity index. Optional - calculated only if the <code>zmax</code> parameter is provided.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -99,7 +103,7 @@
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">cloud_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu">metrics_dispersion</span><span class="op">(</span>z <span class="op">=</span> <span class="va">Z</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu">metrics_dispersion</span><span class="op">(</span>z <span class="op">=</span> <span class="va">Z</span>, dz <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu">metrics_dispersion</span><span class="op">(</span>z <span class="op">=</span> <span class="va">Z</span>, dz <span class="op">=</span> <span class="fl">2</span>,  zmax <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

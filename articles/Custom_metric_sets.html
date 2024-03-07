@@ -108,12 +108,12 @@ data on multiple cores using the future package.</p>
 <span><span class="va">my_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu">my_metric_set</span><span class="op">(</span><span class="va">Z</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">my_metrics</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    n  zmax zmin    zmean     zvar      zsd      zcv      zskew    zkurt zq1</span></span>
-<span><span class="co">#&gt; 1 93 21.97    0 12.17839 46.76843 6.838745 56.15476 -0.4332587 1.730529   0</span></span>
-<span><span class="co">#&gt;    zq5  zq10  zq15  zq20 zq25  zq30   zq35   zq40   zq45 zq50   zq55  zq60</span></span>
-<span><span class="co">#&gt; 1 0.54 2.188 3.428 4.278 4.69 5.872 10.938 11.994 13.588 13.8 14.982 16.25</span></span>
-<span><span class="co">#&gt;    zq65   zq70  zq75   zq80   zq85   zq90  zq95    zq99</span></span>
-<span><span class="co">#&gt; 1 17.02 17.694 18.07 18.358 18.716 19.174 20.72 21.9608</span></span></code></pre></div>
+<span><span class="co">#&gt;     n zmax zmin    zmean     zvar      zsd      zcv      zskew   zkurt zq1</span></span>
+<span><span class="co">#&gt; 1 106   22    0 12.80991 48.29297 6.949315 54.24954 -0.5937762 1.95517   0</span></span>
+<span><span class="co">#&gt;     zq5  zq10  zq15 zq20   zq25  zq30  zq35  zq40   zq45   zq50  zq55  zq60</span></span>
+<span><span class="co">#&gt; 1 0.165 1.605 3.375 4.38 6.0675 9.805 11.68 12.56 13.755 15.275 16.05 17.02</span></span>
+<span><span class="co">#&gt;     zq65   zq70  zq75  zq80    zq85   zq90    zq95  zq99</span></span>
+<span><span class="co">#&gt; 1 17.515 17.995 18.44 18.77 19.1725 20.285 21.4325 21.77</span></span></code></pre></div>
 <p>Now, let’s consider a more complex scenario. Suppose we want to
 calculate metrics_basic() and metrics_percentiles(), but for each
 metric, we want to consider two different scenarios: with and without a
@@ -147,22 +147,22 @@ function to calculate both variants of each metric:</p>
 <p>The output of the function above will look as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">my_metrics</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     n  zmax zmin    zmean     zvar      zsd      zcv      zskew    zkurt zq1</span></span>
-<span><span class="co">#&gt; 1 121 21.97    0 12.20917 48.06151 6.932641 56.78223 -0.4952251 1.780457   0</span></span>
-<span><span class="co">#&gt;    zq5 zq10 zq15 zq20 zq25 zq30  zq35 zq40  zq45  zq50  zq55  zq60  zq65  zq70</span></span>
-<span><span class="co">#&gt; 1 0.19 1.52 3.21 4.02 4.56 6.77 10.63   12 13.63 14.43 15.43 16.89 17.18 17.58</span></span>
-<span><span class="co">#&gt;    zq75  zq80  zq85  zq90  zq95   zq99 n.above2 zmax.above2 zmin.above2</span></span>
-<span><span class="co">#&gt; 1 17.87 18.33 18.71 19.18 20.82 21.896      107       21.97        2.02</span></span>
-<span><span class="co">#&gt;   zmean.above2 zvar.above2 zsd.above2 zcv.above2 zskew.above2 zkurt.above2</span></span>
-<span><span class="co">#&gt; 1      13.7428    33.84173   5.817364   42.33026   -0.6687171     2.121676</span></span>
-<span><span class="co">#&gt;   zq1.above2 zq5.above2 zq10.above2 zq15.above2 zq20.above2 zq25.above2</span></span>
-<span><span class="co">#&gt; 1     2.8468      3.275       4.026        4.56       6.266      10.165</span></span>
-<span><span class="co">#&gt;   zq30.above2 zq35.above2 zq40.above2 zq45.above2 zq50.above2 zq55.above2</span></span>
-<span><span class="co">#&gt; 1      11.688      12.524      13.744      14.593       15.47      16.902</span></span>
-<span><span class="co">#&gt;   zq60.above2 zq65.above2 zq70.above2 zq75.above2 zq80.above2 zq85.above2</span></span>
-<span><span class="co">#&gt; 1      17.152       17.53        17.7      18.115      18.442      18.796</span></span>
-<span><span class="co">#&gt;   zq90.above2 zq95.above2 zq99.above2</span></span>
-<span><span class="co">#&gt; 1      19.484      20.904     21.9408</span></span></code></pre></div>
+<span><span class="co">#&gt;     n  zmax zmin    zmean     zvar      zsd      zcv      zskew   zkurt zq1</span></span>
+<span><span class="co">#&gt; 1 112 21.96    0 12.13098 48.03424 6.930674 57.13201 -0.3886848 1.72932   0</span></span>
+<span><span class="co">#&gt;      zq5  zq10  zq15  zq20   zq25  zq30   zq35   zq40   zq45  zq50  zq55   zq60</span></span>
+<span><span class="co">#&gt; 1 0.2595 2.109 3.364 3.924 4.4925 6.287 10.342 11.576 12.693 14.27 14.77 15.666</span></span>
+<span><span class="co">#&gt;      zq65   zq70   zq75   zq80   zq85   zq90    zq95  zq99 n.above2 zmax.above2</span></span>
+<span><span class="co">#&gt; 1 16.9375 17.649 18.105 18.646 19.071 20.304 21.0635 21.77      101       21.96</span></span>
+<span><span class="co">#&gt;   zmin.above2 zmean.above2 zvar.above2 zsd.above2 zcv.above2 zskew.above2</span></span>
+<span><span class="co">#&gt; 1        2.03     13.39762    36.77515   6.064252   45.26364   -0.4967799</span></span>
+<span><span class="co">#&gt;   zkurt.above2 zq1.above2 zq5.above2 zq10.above2 zq15.above2 zq20.above2</span></span>
+<span><span class="co">#&gt; 1     1.900223       2.82       3.26        3.84        4.32        5.74</span></span>
+<span><span class="co">#&gt;   zq25.above2 zq30.above2 zq35.above2 zq40.above2 zq45.above2 zq50.above2</span></span>
+<span><span class="co">#&gt; 1        9.18       10.92       11.72       13.49       14.29       14.76</span></span>
+<span><span class="co">#&gt;   zq55.above2 zq60.above2 zq65.above2 zq70.above2 zq75.above2 zq80.above2</span></span>
+<span><span class="co">#&gt; 1        15.6       16.53       17.53       17.94       18.34       18.74</span></span>
+<span><span class="co">#&gt;   zq85.above2 zq90.above2 zq95.above2 zq99.above2</span></span>
+<span><span class="co">#&gt; 1       19.15       20.55       21.19       21.77</span></span></code></pre></div>
 <p>Finally, metrics can be calculated for different echo types (e.g.,
 for first returns only, for all returns, etc.). This can be achieved
 using the built-in functionality of the lidR package:</p>
@@ -177,46 +177,46 @@ calculation, it is important to avoid applying any filtering when
 loading the point cloud data or creating the catalog.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">my_metrics</span><span class="op">)</span>,<span class="fl">1</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     n  zmax zmin    zmean     zvar      zsd      zcv      zskew    zkurt zq1</span></span>
-<span><span class="co">#&gt; 1 121 21.97    0 12.20917 48.06151 6.932641 56.78223 -0.4952251 1.780457   0</span></span>
-<span><span class="co">#&gt;    zq5 zq10 zq15 zq20 zq25 zq30  zq35 zq40  zq45  zq50  zq55  zq60  zq65  zq70</span></span>
-<span><span class="co">#&gt; 1 0.19 1.52 3.21 4.02 4.56 6.77 10.63   12 13.63 14.43 15.43 16.89 17.18 17.58</span></span>
-<span><span class="co">#&gt;    zq75  zq80  zq85  zq90  zq95   zq99 n.above2 zmax.above2 zmin.above2</span></span>
-<span><span class="co">#&gt; 1 17.87 18.33 18.71 19.18 20.82 21.896      107       21.97        2.02</span></span>
-<span><span class="co">#&gt;   zmean.above2 zvar.above2 zsd.above2 zcv.above2 zskew.above2 zkurt.above2</span></span>
-<span><span class="co">#&gt; 1      13.7428    33.84173   5.817364   42.33026   -0.6687171     2.121676</span></span>
-<span><span class="co">#&gt;   zq1.above2 zq5.above2 zq10.above2 zq15.above2 zq20.above2 zq25.above2</span></span>
-<span><span class="co">#&gt; 1     2.8468      3.275       4.026        4.56       6.266      10.165</span></span>
-<span><span class="co">#&gt;   zq30.above2 zq35.above2 zq40.above2 zq45.above2 zq50.above2 zq55.above2</span></span>
-<span><span class="co">#&gt; 1      11.688      12.524      13.744      14.593       15.47      16.902</span></span>
-<span><span class="co">#&gt;   zq60.above2 zq65.above2 zq70.above2 zq75.above2 zq80.above2 zq85.above2</span></span>
-<span><span class="co">#&gt; 1      17.152       17.53        17.7      18.115      18.442      18.796</span></span>
-<span><span class="co">#&gt;   zq90.above2 zq95.above2 zq99.above2 n.first zmax.first zmin.first zmean.first</span></span>
-<span><span class="co">#&gt; 1      19.484      20.904     21.9408      77      21.97        0.7    15.34545</span></span>
-<span><span class="co">#&gt;   zvar.first zsd.first zcv.first zskew.first zkurt.first zq1.first zq5.first</span></span>
-<span><span class="co">#&gt; 1   30.03724  5.480624  35.71497   -1.340819    3.767768    0.7152      3.43</span></span>
-<span><span class="co">#&gt;   zq10.first zq15.first zq20.first zq25.first zq30.first zq35.first zq40.first</span></span>
-<span><span class="co">#&gt; 1       4.56     10.296     12.528       13.8     15.202      15.98      16.78</span></span>
-<span><span class="co">#&gt;   zq45.first zq50.first zq55.first zq60.first zq65.first zq70.first zq75.first</span></span>
-<span><span class="co">#&gt; 1     17.108      17.51     17.596      17.72     18.058     18.332       18.7</span></span>
-<span><span class="co">#&gt;   zq80.first zq85.first zq90.first zq95.first zq99.first n.above2.first</span></span>
-<span><span class="co">#&gt; 1     18.978     19.228     20.454     21.006    21.9624             75</span></span>
-<span><span class="co">#&gt;   zmax.above2.first zmin.above2.first zmean.above2.first zvar.above2.first</span></span>
-<span><span class="co">#&gt; 1             21.97              2.02           15.73573          24.90559</span></span>
-<span><span class="co">#&gt;   zsd.above2.first zcv.above2.first zskew.above2.first zkurt.above2.first</span></span>
-<span><span class="co">#&gt; 1          4.99055         31.71476          -1.374623           4.000045</span></span>
-<span><span class="co">#&gt;   zq1.above2.first zq5.above2.first zq10.above2.first zq15.above2.first</span></span>
-<span><span class="co">#&gt; 1           3.0634            4.156             5.786            11.307</span></span>
-<span><span class="co">#&gt;   zq20.above2.first zq25.above2.first zq30.above2.first zq35.above2.first</span></span>
-<span><span class="co">#&gt; 1            13.288             14.34             15.39            16.509</span></span>
-<span><span class="co">#&gt;   zq40.above2.first zq45.above2.first zq50.above2.first zq55.above2.first</span></span>
-<span><span class="co">#&gt; 1             16.96            17.204             17.53            17.614</span></span>
-<span><span class="co">#&gt;   zq60.above2.first zq65.above2.first zq70.above2.first zq75.above2.first</span></span>
-<span><span class="co">#&gt; 1            17.792            18.079            18.338            18.705</span></span>
-<span><span class="co">#&gt;   zq80.above2.first zq85.above2.first zq90.above2.first zq95.above2.first</span></span>
-<span><span class="co">#&gt; 1            19.046            19.252            20.486            21.029</span></span>
-<span><span class="co">#&gt;   zq99.above2.first</span></span>
-<span><span class="co">#&gt; 1           21.9626</span></span></code></pre></div>
+<span><span class="co">#&gt;     n  zmax zmin    zmean     zvar      zsd      zcv      zskew   zkurt zq1</span></span>
+<span><span class="co">#&gt; 1 112 21.96    0 12.13098 48.03424 6.930674 57.13201 -0.3886848 1.72932   0</span></span>
+<span><span class="co">#&gt;      zq5  zq10  zq15  zq20   zq25  zq30   zq35   zq40   zq45  zq50  zq55   zq60</span></span>
+<span><span class="co">#&gt; 1 0.2595 2.109 3.364 3.924 4.4925 6.287 10.342 11.576 12.693 14.27 14.77 15.666</span></span>
+<span><span class="co">#&gt;      zq65   zq70   zq75   zq80   zq85   zq90    zq95  zq99 n.above2 zmax.above2</span></span>
+<span><span class="co">#&gt; 1 16.9375 17.649 18.105 18.646 19.071 20.304 21.0635 21.77      101       21.96</span></span>
+<span><span class="co">#&gt;   zmin.above2 zmean.above2 zvar.above2 zsd.above2 zcv.above2 zskew.above2</span></span>
+<span><span class="co">#&gt; 1        2.03     13.39762    36.77515   6.064252   45.26364   -0.4967799</span></span>
+<span><span class="co">#&gt;   zkurt.above2 zq1.above2 zq5.above2 zq10.above2 zq15.above2 zq20.above2</span></span>
+<span><span class="co">#&gt; 1     1.900223       2.82       3.26        3.84        4.32        5.74</span></span>
+<span><span class="co">#&gt;   zq25.above2 zq30.above2 zq35.above2 zq40.above2 zq45.above2 zq50.above2</span></span>
+<span><span class="co">#&gt; 1        9.18       10.92       11.72       13.49       14.29       14.76</span></span>
+<span><span class="co">#&gt;   zq55.above2 zq60.above2 zq65.above2 zq70.above2 zq75.above2 zq80.above2</span></span>
+<span><span class="co">#&gt; 1        15.6       16.53       17.53       17.94       18.34       18.74</span></span>
+<span><span class="co">#&gt;   zq85.above2 zq90.above2 zq95.above2 zq99.above2 n.first zmax.first zmin.first</span></span>
+<span><span class="co">#&gt; 1       19.15       20.55       21.19       21.77      63      21.96       0.72</span></span>
+<span><span class="co">#&gt;   zmean.first zvar.first zsd.first zcv.first zskew.first zkurt.first zq1.first</span></span>
+<span><span class="co">#&gt; 1    15.60476   30.81278  5.550926    35.572   -1.288463    3.677418    1.5322</span></span>
+<span><span class="co">#&gt;   zq5.first zq10.first zq15.first zq20.first zq25.first zq30.first zq35.first</span></span>
+<span><span class="co">#&gt; 1     3.495      4.478     11.013     13.152      14.36      14.72     15.313</span></span>
+<span><span class="co">#&gt;   zq40.first zq45.first zq50.first zq55.first zq60.first zq65.first zq70.first</span></span>
+<span><span class="co">#&gt; 1     16.424     16.975      17.53     17.731     18.054     18.376     18.722</span></span>
+<span><span class="co">#&gt;   zq75.first zq80.first zq85.first zq90.first zq95.first zq99.first</span></span>
+<span><span class="co">#&gt; 1      19.08     19.486     20.655      20.94     21.299    21.8422</span></span>
+<span><span class="co">#&gt;   n.above2.first zmax.above2.first zmin.above2.first zmean.above2.first</span></span>
+<span><span class="co">#&gt; 1             62             21.96              2.03           15.84484</span></span>
+<span><span class="co">#&gt;   zvar.above2.first zsd.above2.first zcv.above2.first zskew.above2.first</span></span>
+<span><span class="co">#&gt; 1          27.62726         5.256164         33.17272          -1.305601</span></span>
+<span><span class="co">#&gt;   zkurt.above2.first zq1.above2.first zq5.above2.first zq10.above2.first</span></span>
+<span><span class="co">#&gt; 1           3.806724            2.884           3.9065             5.609</span></span>
+<span><span class="co">#&gt;   zq15.above2.first zq20.above2.first zq25.above2.first zq30.above2.first</span></span>
+<span><span class="co">#&gt; 1           11.4295            13.914            14.455            14.847</span></span>
+<span><span class="co">#&gt;   zq35.above2.first zq40.above2.first zq45.above2.first zq50.above2.first</span></span>
+<span><span class="co">#&gt; 1            15.671            16.482           17.0295             17.53</span></span>
+<span><span class="co">#&gt;   zq55.above2.first zq60.above2.first zq65.above2.first zq70.above2.first</span></span>
+<span><span class="co">#&gt; 1           17.7355            18.062            18.418            18.731</span></span>
+<span><span class="co">#&gt;   zq75.above2.first zq80.above2.first zq85.above2.first zq90.above2.first</span></span>
+<span><span class="co">#&gt; 1            19.095            19.508           20.6775             20.95</span></span>
+<span><span class="co">#&gt;   zq95.above2.first zq99.above2.first</span></span>
+<span><span class="co">#&gt; 1           21.3045           21.8441</span></span></code></pre></div>
   </main>
 </div>
 

@@ -60,7 +60,7 @@ m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
 
 - `n` - total number of returns
 - `zmin`, `zmax`, `zmean`, `zvar`, `zsd`, `zcv`, `zskew`, `zkurt` -
-  elevation maximum, minimum, mean, standard deviation, coeficient of
+  elevation maximum, minimum, mean, standard deviation, coefficient of
   variation, skewness, and kurtosis
 
 #### Height percentiles - `metrics_percentiles()`
@@ -154,8 +154,9 @@ intervals. Default intervals are: 0, 0.15, 2, 5, 10, 20, and 30.
 
 #### Number of points by return number - `metrics_echo2()`
 
-`n_return_1` - total number of 1st returns `n_return_2` - total number
-of 2nd returns `n_return_*` - total number of \* returns
+- `n_return_1` - total number of 1st returns
+- `n_return_2` - total number of 2nd returns
+- `n_return_*` - total number of \* returns
 
 #### A wrapper function for the rumple metric - `metrics_rumple()`
 

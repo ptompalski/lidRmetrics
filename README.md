@@ -194,7 +194,7 @@ and Biophysical Properties of Douglas-Fir Western Hemlock Forests.
 Remote Sensing of Environment, 70(3), 339–361.
 <doi:10.1016/S0034-4257(99)00052-8>
 
-#### Metrics based on kernel density estimation - `metrics_kde()`
+#### Metrics based on kernel density estimation - \[`metrics_kde()`\]
 
 Kernel density estimation (KDE) applied to the distribution of point
 cloud elevation (Z). KDE allows to create a probability density function

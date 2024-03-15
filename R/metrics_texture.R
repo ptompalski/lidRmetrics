@@ -1,15 +1,15 @@
 #' Canopy texture metrics
 #' 
 #' Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM). CHM is calculated on the fly
-#' to allow easy integration with e.g. \code{lidR::grid_metrics} function.
+#' to allow easy integration with e.g. \code{lidR::pixel_metrics} function.
 #' 
 #' @inheritParams metrics_rumple
 #' @param chm_algorithm Function used to generate the CHM. By default \code{lidR::p2r(na.fill = lidR::knnidw())} is used.
-#' @param ... additional parameters passed to \code{ForestTools::glcm_img()}.
+#' @param ... additional parameters passed to \code{ForestTools::glcm()}.
 #' @return A list. GLCM metrics.
 #'
-#' @details Function first uses the \code{lidR::grid_canopy()} algorithm to create a CHM. 
-#'  \code{ForestTools::glcm_img()} function is then used to calculate GLCM statistics (see package manual for details). 
+#' @details Function first uses the \code{lidR::rasterize_canopy()} algorithm to create a CHM. 
+#'  \code{ForestTools::glcm()} function is then used to calculate GLCM statistics (see package manual for details). 
 #' This implementation of GLCM does not allow for missing values - after CHM is created, any missing values are converted to 0.
 #' 
 #' 
@@ -22,6 +22,7 @@
 #' m1 <- cloud_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1))
 #' 
 #' m2 <- pixel_metrics(las, ~metrics_texture(x = X, y = Y, z = Z, pixel_size = 1), res = 20)
+#' @export
 
 
 metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, ...) {
@@ -53,7 +54,7 @@ metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, 
     D <- lidR::LAS(D, header = rlas::header_create(D), check=F)
     
     #create chm
-    chm <- lidR::grid_canopy(D, res = pixel_size, algorithm = chm_algorithm)
+    chm <- lidR::rasterize_canopy(D, res = pixel_size, algorithm = chm_algorithm)
     
     # glcm_img does not accept NA values.
     # NAs are replaced with 0
@@ -61,7 +62,7 @@ metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, 
     
     #calculating texture
     try({
-      tex <- ForestTools::glcm_img(chm, ...)
+      tex <- ForestTools::glcm(chm, ...)
     }, silent = T)
     
   }
@@ -70,6 +71,7 @@ metrics_texture <- function(x, y, z, pixel_size, zmin=NA, chm_algorithm = NULL, 
 }
 
 #' @rdname metrics_texture
+#' @export
 .metrics_texture = ~metrics_texture(X,Y,Z,1)
 
 

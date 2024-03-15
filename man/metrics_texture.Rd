@@ -22,18 +22,18 @@ metrics_texture(x, y, z, pixel_size, zmin = NA, chm_algorithm = NULL, ...)
 
 \item{chm_algorithm}{Function used to generate the CHM. By default \code{lidR::p2r(na.fill = lidR::knnidw())} is used.}
 
-\item{...}{additional parameters passed to \code{ForestTools::glcm_img()}.}
+\item{...}{additional parameters passed to \code{ForestTools::glcm()}.}
 }
 \value{
 A list. GLCM metrics.
 }
 \description{
 Generates a suite of GLCM (Grey-Level Co-Occurence Matrix) metrics of a canopy height model (CHM). CHM is calculated on the fly
-to allow easy integration with e.g. \code{lidR::grid_metrics} function.
+to allow easy integration with e.g. \code{lidR::pixel_metrics} function.
 }
 \details{
-Function first uses the \code{lidR::grid_canopy()} algorithm to create a CHM. 
- \code{ForestTools::glcm_img()} function is then used to calculate GLCM statistics (see package manual for details). 
+Function first uses the \code{lidR::rasterize_canopy()} algorithm to create a CHM. 
+ \code{ForestTools::glcm()} function is then used to calculate GLCM statistics (see package manual for details). 
 This implementation of GLCM does not allow for missing values - after CHM is created, any missing values are converted to 0.
 }
 \examples{

@@ -1,6 +1,6 @@
 Package: lidRmetrics
 Title: Suplemetary point cloud metrics.
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person("Piotr", "Tompalski", email = "piotr.tompalski@gmail.com", role = c("aut", "cre")),
     person("Jean-Romain", "Roussel", email = "", role = c("ctb")),

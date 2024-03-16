@@ -10,7 +10,7 @@
 #' Allows to either limit the output to particular return numbers of interest (e.g. c(1, 3)), 
 #' or extend the output to always include the same return numbers (useful when processing multiple datasets with 
 #' different return numbers). See examples.
-#' Default NULL - all return numbers are included. 
+#' Default c(1,2,3,4) - return numbers 1 - 4 are included. 
 #' @inheritParams metrics_basic
 #' 
 #' @return A list. Number of points by each return number.
@@ -33,7 +33,7 @@
 
 
 
-metrics_echo2 <- function(ReturnNumber, KeepReturns=NULL, z=NULL, zmin=NA) {
+metrics_echo2 <- function(ReturnNumber, KeepReturns=c(1,2,3,4), z=NULL, zmin=NA) {
   
   #check user inputs
   if(!is.na(zmin))  assert_is_a_number(zmin)

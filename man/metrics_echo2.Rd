@@ -9,7 +9,7 @@
 An object of class \code{formula} of length 2.
 }
 \usage{
-metrics_echo2(ReturnNumber, KeepReturns = NULL, z = NULL, zmin = NA)
+metrics_echo2(ReturnNumber, KeepReturns = c(1, 2, 3, 4), z = NULL, zmin = NA)
 
 .metrics_echo2
 }
@@ -20,7 +20,7 @@ metrics_echo2(ReturnNumber, KeepReturns = NULL, z = NULL, zmin = NA)
 Allows to either limit the output to particular return numbers of interest (e.g. c(1, 3)), 
 or extend the output to always include the same return numbers (useful when processing multiple datasets with 
 different return numbers). See examples.
-Default NULL - all return numbers are included.}
+Default c(1,2,3,4) - return numbers 1 - 4 are included.}
 
 \item{z}{Z coordinate of the point cloud (point heights)}
 

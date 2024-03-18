@@ -63,16 +63,15 @@
 <span><span class="va">.metrics_set1</span></span>
 <span></span>
 <span><span class="fu">metrics_set2</span><span class="op">(</span></span>
-<span>  <span class="va">x</span>,</span>
-<span>  <span class="va">y</span>,</span>
 <span>  <span class="va">z</span>,</span>
+<span>  <span class="va">ReturnNumber</span>,</span>
+<span>  <span class="va">NumberOfReturns</span>,</span>
 <span>  zmin <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span>,</span>
 <span>  dz <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  interval_count <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  zintervals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.15</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>,</span>
-<span>  pixel_size <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  vox_size <span class="op">=</span> <span class="fl">1</span></span>
+<span>  KeepReturns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">.metrics_set2</span></span>
@@ -90,7 +89,8 @@
 <span>  interval_count <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  zintervals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.15</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>,</span>
 <span>  pixel_size <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  vox_size <span class="op">=</span> <span class="fl">1</span></span>
+<span>  vox_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  KeepReturns <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">.metrics_set3</span></span></code></pre></div>
@@ -124,8 +124,20 @@
 <dd><p>Height intervals. See <a href="metrics_interval.html">metrics_interval</a>.</p></dd>
 
 
+<dt>ReturnNumber</dt>
+<dd><p>return number</p></dd>
+
+
+<dt>NumberOfReturns</dt>
+<dd><p>number of returns</p></dd>
+
+
 <dt>x, y, z</dt>
 <dd><p>X, Y, Z coordinates of the point cloud</p></dd>
+
+
+<dt>i</dt>
+<dd><p>Intensity</p></dd>
 
 
 <dt>pixel_size</dt>
@@ -145,12 +157,11 @@ to conventiently compute most of the metrics commonly used at the same time.</p>
   <code><a href="metrics_Lmoments.html">metrics_Lmoments()</a></code>, <code><a href="metrics_lad.html">metrics_lad()</a></code>, <code><a href="metrics_interval.html">metrics_interval()</a></code>.</p></dd>
 
   <dt><code>metrics_set2()</code></dt>
-<dd><p>Included metrics: All metrics in <code>metrics_set1()</code>, <code><a href="metrics_rumple.html">metrics_rumple()</a></code>,
-  <code><a href="metrics_voxels.html">metrics_voxels()</a></code>.</p></dd>
+<dd><p>Included metrics: All metrics in <code>metrics_set1()</code>, <code><a href="metrics_echo.html">metrics_echo()</a></code>, and <code><a href="metrics_echo2.html">metrics_echo2()</a></code>.</p></dd>
 
   <dt><code>metrics_set3()</code></dt>
 <dd><p>Included metrics: All metrics in <code>metrics_set2()</code>, <code><a href="metrics_kde.html">metrics_kde()</a></code>, 
-   <code><a href="metrics_echo.html">metrics_echo()</a></code>, <code><a href="metrics_HOME.html">metrics_HOME()</a></code></p></dd>
+   <code><a href="metrics_HOME.html">metrics_HOME()</a></code>, <code><a href="metrics_rumple.html">metrics_rumple()</a></code>,  <code><a href="metrics_voxels.html">metrics_voxels()</a></code></p></dd>
 .
 
 </dl><p>Currently no set includes <code><a href="metrics_texture.html">metrics_texture()</a></code> as the function is considered experimental at this stage.</p>

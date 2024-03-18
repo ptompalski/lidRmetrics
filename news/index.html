@@ -47,6 +47,15 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.2" id="lidrmetrics-012">lidRmetrics 0.1.2<a class="anchor" aria-label="anchor" href="#lidrmetrics-012"></a></h2>
 <div class="section level4">
+<h4 id="breaking-changes-0-1-2">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-2"></a></h4>
+<ul><li>changes in <code><a href="../reference/metrics_sets.html">metrics_set2()</a></code> and <code><a href="../reference/metrics_sets.html">metrics_set3()</a></code>. <code><a href="../reference/metrics_sets.html">metrics_set2()</a></code> now consists of all metrics that are calculated based on the <code>Z</code>, <code>ReturnNumber</code> and <code>NumberOfReturn</code> attributes. Metrics that require more time consuming computations in 3D space (<code><a href="../reference/metrics_rumple.html">metrics_rumple()</a></code>, <code><a href="../reference/metrics_voxels.html">metrics_voxels()</a></code>) as well as less common metrics are now moved to <code><a href="../reference/metrics_sets.html">metrics_set3()</a></code>.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="enhancements-0-1-2">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-2"></a></h4>
+<ul><li>added benchmarking results in <code>readme.md</code>
+</li>
+</ul></div>
+<div class="section level4">
 <h4 id="fixes-0-1-2">Fixes<a class="anchor" aria-label="anchor" href="#fixes-0-1-2"></a></h4>
 <ul><li>Fixed issue with <code><a href="../reference/metrics_echo2.html">metrics_echo2()</a></code> that caused function fail when the <code>KeepReturns</code> was <code>NULL</code> (default value). Function’s new default value of <code>KeepReturns</code> is set to <code>c(1,2,3,4)</code> (#19).</li>
 <li>Fixed issue in <code><a href="../reference/metrics_texture.html">metrics_texture()</a></code>. Updated to match the most recent changes in the <code>ForestTool</code> package (#20).</li>

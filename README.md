@@ -49,9 +49,9 @@ las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
 m1 <- cloud_metrics(las, ~metrics_basic(Z))
 
-m2 <- pixel_metrics(las, ~metrics_set1(Z), res = 20)
+m2 <- pixel_metrics(las, ~metrics_set2(Z, ReturnNumber, NumberOfReturns), res = 20)
 
-m3 <- pixel_metrics(las, ~metrics_set2(X, Y, Z), res = 20)
+m3 <- pixel_metrics(las, .metrics_set3, res = 20)
 ```
 
 ## List of metrics

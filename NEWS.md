@@ -1,9 +1,19 @@
 # lidRmetrics 0.1.2
 
+### Breaking changes
+
+- changes in `metrics_set2()` and `metrics_set3()`. `metrics_set2()` now consists of all metrics that are calculated based on the `Z`, `ReturnNumber` and `NumberOfReturn` attributes. Metrics that require more time consuming computations in 3D space (`metrics_rumple()`, `metrics_voxels()`) as well as less common metrics are now moved to `metrics_set3()`.
+
+### Enhancements
+
+- added benchmarking results in `readme.md`
+
 ### Fixes
 
 - Fixed issue with `metrics_echo2()` that caused function fail when the `KeepReturns` was `NULL` (default value). Function's new default value of `KeepReturns` is set to `c(1,2,3,4)` (#19).
 - Fixed issue in `metrics_texture()`. Updated to match the most recent changes in the `ForestTool` package (#20).
+
+
 
 
 # lidRmetrics 0.1.1

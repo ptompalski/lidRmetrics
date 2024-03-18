@@ -8,15 +8,15 @@
 #'   \item{\code{metrics_set1()}}{Included metrics: \code{metrics_basic()}, \code{metrics_percentiles()},  
 #'   \code{metrics_percabove()}, \code{metrics_dispersion()},  \code{metrics_canopydensity()}, 
 #'   \code{metrics_Lmoments()}, \code{metrics_lad()}, \code{metrics_interval()}.}
-#'   \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_rumple()},
-#'   \code{metrics_voxels()}. }
+#'   \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_echo()}, and \code{metrics_echo2()}.}
 #'   \item{\code{metrics_set3()}}{Included metrics: All metrics in \code{metrics_set2()}, \code{metrics_kde()}, 
-#'    \code{metrics_echo()}, \code{metrics_HOME()}}.
+#'    \code{metrics_HOME()}, \code{metrics_rumple()},  \code{metrics_voxels()}}
 #' }
-#' Currently no set includes \code{metrics_texture()} as the function is considered experimental at this stage.
+#' Currently no set includes \code{metrics_texture()}.
 #' 
 #' 
-#' 
+#' @inheritParams metrics_echo
+#' @inheritParams metrics_HOME
 #' @param x,y,z X, Y, Z coordinates of the point cloud
 #' @param zmin Minimum height. If set, heights below are ignored in calculations.
 #' @param threshold Threshold height(s). See \link[=metrics_percabove]{metrics_percabove}.
@@ -29,7 +29,12 @@
 
 #' @rdname metrics_sets
 #' @export
-metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10, zintervals=c(0, 0.15, 2, 5, 10, 20, 30)) {
+metrics_set1 <- function(z, 
+                         zmin=NA, 
+                         threshold = c(2,5), 
+                         dz=1, 
+                         interval_count=10, 
+                         zintervals=c(0, 0.15, 2, 5, 10, 20, 30)) {
   
   m_basic   <- metrics_basic(z=z, zmin=zmin)
   m_prctls  <- metrics_percentiles(z=z, zmin=zmin)
@@ -54,20 +59,26 @@ metrics_set1 <- function(z, zmin=NA, threshold = c(2,5), dz=1, interval_count=10
 
 #' @rdname metrics_sets
 #' @export
-metrics_set2  <- function(x, y, z, 
+metrics_set2  <- function(z, 
+                          ReturnNumber,
+                          NumberOfReturns,
                           zmin=NA, 
                           threshold = c(2,5), 
                           dz=1, 
                           interval_count=10, 
                           zintervals=c(0, 0.15, 2, 5, 10, 20, 30),
-                          pixel_size=1,
-                          vox_size=1) {
+                          KeepReturns = c(1, 2, 3, 4)
+                          ) {
   
   m_set1    <- metrics_set1(z = z, zmin = zmin, threshold = threshold, dz = dz, interval_count = interval_count, zintervals = zintervals)
-  m_rumple  <- metrics_rumple(x = x, y = y, z = z, pixel_size = pixel_size)
-  m_vox     <- metrics_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
+  m_echo    <- metrics_echo(ReturnNumber = ReturnNumber, NumberOfReturns = NumberOfReturns, z = z, zmin = zmin)
+  m_echo2   <- metrics_echo2(ReturnNumber = ReturnNumber, KeepReturns = KeepReturns, z=z, zmin=zmin)
   
-  m <- c(m_set1, m_rumple, m_vox)
+  # m_rumple  <- metrics_rumple(x = x, y = y, z = z, pixel_size = pixel_size)
+  # m_vox     <- metrics_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
+  
+  # m <- c(m_set1, m_rumple, m_vox)
+  m <- c(m_set1, m_echo, m_echo2)
   
   return(m)
   
@@ -75,7 +86,7 @@ metrics_set2  <- function(x, y, z,
 
 #' @rdname metrics_sets
 #' @export
-.metrics_set2 = ~metrics_set2(X,Y,Z)
+.metrics_set2 = ~metrics_set2(Z, ReturnNumber, NumberOfReturns)
 
 
 
@@ -91,17 +102,21 @@ metrics_set3  <- function(x, y, z, i,
                          interval_count=10, 
                          zintervals=c(0, 0.15, 2, 5, 10, 20, 30),
                          pixel_size=1,
-                         vox_size=1) {
+                         vox_size=1,
+                         KeepReturns = c(1, 2, 3, 4)) {
   
   m_set1    <- metrics_set1(z = z, zmin = zmin, threshold = threshold, dz = dz, interval_count = interval_count, zintervals = zintervals)
+  
+  m_echo    <- metrics_echo(ReturnNumber = ReturnNumber, NumberOfReturns = NumberOfReturns, z = z, zmin = zmin)
+  m_echo2   <- metrics_echo2(ReturnNumber = ReturnNumber, KeepReturns = KeepReturns, z=z, zmin=zmin)
+  
   m_rumple  <- metrics_rumple(x = x, y = y, z = z, pixel_size = pixel_size)
   m_vox     <- metrics_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
   m_kde     <- metrics_kde(z = z, zmin = zmin)
-  m_echo    <- metrics_echo(z=z, ReturnNumber = ReturnNumber, NumberOfReturns=NumberOfReturns)
   m_HOME    <- metrics_HOME(z = z, i = i, zmin = zmin)
   #m_tex     <- metrics_texture(x = x, y = y, z = z, pixel_size = pixel_size, zmin = zmin)
   
-  m <- c(m_set1, m_rumple, m_vox, m_kde, m_echo, m_HOME)
+  m <- c(m_set1, m_echo, m_echo2, m_rumple, m_vox, m_kde, m_HOME)
   
   return(m)
   

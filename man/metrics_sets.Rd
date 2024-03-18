@@ -29,16 +29,15 @@ metrics_set1(
 .metrics_set1
 
 metrics_set2(
-  x,
-  y,
   z,
+  ReturnNumber,
+  NumberOfReturns,
   zmin = NA,
   threshold = c(2, 5),
   dz = 1,
   interval_count = 10,
   zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
-  pixel_size = 1,
-  vox_size = 1
+  KeepReturns = c(1, 2, 3, 4)
 )
 
 .metrics_set2
@@ -56,7 +55,8 @@ metrics_set3(
   interval_count = 10,
   zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
   pixel_size = 1,
-  vox_size = 1
+  vox_size = 1,
+  KeepReturns = c(1, 2, 3, 4)
 )
 
 .metrics_set3
@@ -72,7 +72,13 @@ metrics_set3(
 
 \item{zintervals}{Height intervals. See \link[=metrics_interval]{metrics_interval}.}
 
+\item{ReturnNumber}{return number}
+
+\item{NumberOfReturns}{number of returns}
+
 \item{x, y, z}{X, Y, Z coordinates of the point cloud}
+
+\item{i}{Intensity}
 
 \item{pixel_size}{pixel size for calculating rumple index}
 
@@ -88,10 +94,9 @@ to conventiently compute most of the metrics commonly used at the same time.
   \item{\code{metrics_set1()}}{Included metrics: \code{metrics_basic()}, \code{metrics_percentiles()},  
   \code{metrics_percabove()}, \code{metrics_dispersion()},  \code{metrics_canopydensity()}, 
   \code{metrics_Lmoments()}, \code{metrics_lad()}, \code{metrics_interval()}.}
-  \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_rumple()},
-  \code{metrics_voxels()}. }
+  \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_echo()}, and \code{metrics_echo2()}.}
   \item{\code{metrics_set3()}}{Included metrics: All metrics in \code{metrics_set2()}, \code{metrics_kde()}, 
-   \code{metrics_echo()}, \code{metrics_HOME()}}.
+   \code{metrics_HOME()}, \code{metrics_rumple()},  \code{metrics_voxels()}}.
 }
 Currently no set includes \code{metrics_texture()} as the function is considered experimental at this stage.
 }

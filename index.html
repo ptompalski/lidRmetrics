@@ -299,7 +299,14 @@
 <a class="anchor" aria-label="anchor" href="#glcm-grey-level-co-occurence-matrix-metrics-of-a-canopy-height-model-chm---metrics_texture"></a>
 </h4>
 <p><code>glcm_mean</code>, <code>glcm_variance</code>, <code>glcm_autoCorrelation</code>, <code>glcm_cProminence</code>, <code>glcm_cShade</code>, <code>glcm_cTendency</code>, <code>glcm_contrast</code>, <code>glcm_correlation</code>, <code>glcm_differenceEntropy</code>, <code>glcm_dissimilarity</code>, <code>glcm_energy</code>, <code>glcm_entropy</code>, <code>glcm_homogeneity1</code>, <code>glcm_homogeneity2</code>, <code>glcm_IDMN</code>, <code>glcm_IDN</code>, <code>glcm_inverseVariance</code>, <code>glcm_maxProb</code>, <code>glcm_sumAverage</code>, <code>glcm_sumEntropy</code>, <code>glcm_sumVariance</code></p>
-<p>Requires the {ForestTools} package. ForestTools::glcm_img() function is used to calculate the GLCM statistics (see package manual for details)</p>
+<p>Requires the {ForestTools} package (<a href="https://github.com/andrew-plowright/ForestTools" class="external-link uri">https://github.com/andrew-plowright/ForestTools</a>). ForestTools::glcm() function is used to calculate the GLCM statistics (see package manual for details)</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="benchmarking">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a>
+</h2>
+<p>The processing time required for each function in the package varies, sometimes significantly, depending on the calculations involved. The figure below presents the average processing time for each <code>metrics_*</code> function included in the package. This benchmark was conducted using the “Megaplot.laz” dataset from the <code>lidR</code> package, with iterative calls to the <code><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics()</a></code> function. It’s important to note that the results of this benchmark are dependent on the workstation’s specifications and should be considered as a relative indication of the processing time required.</p>
+<p><img src="README_files/figure-gfm/unnamed-chunk-3-1.png"><!-- --></p>
 <!-- ```{r, echo=F, message=FALSE} -->
 <!-- library(readxl) -->
 <!-- library(knitr) -->
@@ -327,7 +334,6 @@
 <!-- ```{r, echo=FALSE} -->
 <!-- htmltools::includeHTML("kable_out.html") -->
 <!-- ``` -->
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

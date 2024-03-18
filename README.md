@@ -235,8 +235,24 @@ See: <http://lastools.org/download/lascanopy_README.txt>
 `glcm_IDMN`, `glcm_IDN`, `glcm_inverseVariance`, `glcm_maxProb`,
 `glcm_sumAverage`, `glcm_sumEntropy`, `glcm_sumVariance`
 
-Requires the {ForestTools} package. ForestTools::glcm_img() function is
-used to calculate the GLCM statistics (see package manual for details)
+Requires the {ForestTools} package
+(<https://github.com/andrew-plowright/ForestTools>). ForestTools::glcm()
+function is used to calculate the GLCM statistics (see package manual
+for details)
+
+## Benchmarking
+
+The processing time required for each function in the package varies,
+sometimes significantly, depending on the calculations involved. The
+figure below presents the average processing time for each `metrics_*`
+function included in the package. This benchmark was conducted using the
+“Megaplot.laz” dataset from the `lidR` package, with iterative calls to
+the `pixel_metrics()` function. It’s important to note that the results
+of this benchmark are dependent on the workstation’s specifications and
+should be considered as a relative indication of the processing time
+required.
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 <!-- ```{r, echo=F, message=FALSE} -->
 <!-- library(readxl) -->

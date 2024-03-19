@@ -29,19 +29,22 @@ metrics_rumple <- function(x, y, z, pixel_size, zmin=NA) {
   if(!is.na(zmin))  assert_is_a_number(zmin)
   assert_all_are_positive(pixel_size)
   
-  if (!is.na(zmin)) z <- z[z>zmin]
-  
   r <- NA_real_
   
   if (length(z) > 2) {
     
     D <-  data.table::data.table(X=x, Y=y, Z=z)
     
-    D <- LAS(D, header = rlas::header_create(D), check=F)
+    if (!is.na(zmin)) D <- D[Z > zmin]
     
-    D <- lidR::decimate_points(D, lidR::highest(pixel_size))
-    
-    r <- lidR::rumple_index(x = D$X, y = D$Y, z = D$Z)
+    if(nrow(D)>0) {
+      
+      D <- LAS(D, header = rlas::header_create(D), check=F)
+      
+      D <- lidR::decimate_points(D, lidR::highest(pixel_size))
+      
+      r <- lidR::rumple_index(x = D$X, y = D$Y, z = D$Z)
+    }
   }
   
   return(list(rumple=r))

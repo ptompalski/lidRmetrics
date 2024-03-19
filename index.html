@@ -62,7 +62,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="lidrmetrics">lidRmetrics<a class="anchor" aria-label="anchor" href="#lidrmetrics"></a>
 </h1></div>
-<p>Additional point cloud metrics for use with *_metric functions in the <code>lidR</code> package.</p>
+<p>Additional point cloud metrics for use with *_metric functions in the <a href="https://github.com/r-lidar/lidR" class="external-link"><code>lidR</code></a> package.</p>
 <p>The package serves as a companion to the <code>lidR</code> package and offers a variety of functions for calculating different types of point cloud metrics. These include <code><a href="reference/metrics_basic.html">metrics_basic()</a></code> for basic information about the point cloud, <code><a href="reference/metrics_percentiles.html">metrics_percentiles()</a></code> for height percentiles, <code><a href="reference/metrics_percabove.html">metrics_percabove()</a></code> and <code><a href="reference/metrics_dispersion.html">metrics_dispersion()</a></code> for characterizing the vertical structure. Additionally, <code><a href="reference/metrics_echo.html">metrics_echo()</a></code> and <code><a href="reference/metrics_echo2.html">metrics_echo2()</a></code> provide information on the number and proportion of different return types, while <code><a href="reference/metrics_interval.html">metrics_interval()</a></code> calculates the percentage of points by horizontal layers. More complex metrics such as <code>metrics_kde</code> and <code><a href="reference/metrics_voxels.html">metrics_voxels()</a></code> are also included. A comprehensive list of metrics and their corresponding functions can be found in the table below.</p>
 <p>These individual functions serve as building blocks that can be combined to create various sets of metrics. The package includes three examples of such metric sets.</p>
 <div class="section level2">
@@ -85,10 +85,13 @@
 <span><span class="va">LASfile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Megaplot.laz"</span>, package<span class="op">=</span><span class="st">"lidR"</span><span class="op">)</span></span>
 <span><span class="va">las</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/readLAS.html" class="external-link">readLAS</a></span><span class="op">(</span><span class="va">LASfile</span>, select <span class="op">=</span> <span class="st">"*"</span>, filter <span class="op">=</span> <span class="st">"-keep_random_fraction 0.5"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># you can run any metrics_* function with cloud_metrics()</span></span>
 <span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">cloud_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu"><a href="reference/metrics_basic.html">metrics_basic</a></span><span class="op">(</span><span class="va">Z</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># or you can run one of the metric sets in pixel_metrics()</span></span>
 <span><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="op">~</span><span class="fu"><a href="reference/metrics_sets.html">metrics_set2</a></span><span class="op">(</span><span class="va">Z</span>, <span class="va">ReturnNumber</span>, <span class="va">NumberOfReturns</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># each metrics_* function has a convenient shortcut to run it with default parameters: </span></span>
 <span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="va">.metrics_set3</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">

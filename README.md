@@ -252,7 +252,7 @@ of this benchmark are dependent on the workstation’s specifications and
 should be considered as a relative indication of the processing time
 required.
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](man/figures/unnamed-chunk-4-1.svg)<!-- -->
 
 <!-- ```{r, echo=F, message=FALSE} -->
 <!-- library(readxl) -->

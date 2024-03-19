@@ -1,8 +1,27 @@
 ---
-  output: github_document
+output: 
+  github_document:
+    toc: false
+    fig_width: 7
+    fig_height: 5
 ---
   
   <!-- README.md is generated from README.Rmd. Please edit that file -->
+  
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+options(digits = 2)
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.path = "man/figures/",
+  fig.width = 7,
+  fig.height = 5,
+  comment = "#>",
+  dev = "svg",
+  dpi = 300
+)
+```
+  
   
 # lidRmetrics
 

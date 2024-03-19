@@ -93,6 +93,7 @@
 <span></span>
 <span><span class="co"># each metrics_* function has a convenient shortcut to run it with default parameters: </span></span>
 <span><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics</a></span><span class="op">(</span><span class="va">las</span>, <span class="va">.metrics_set3</span>, res <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<p>Please take a look at the <a href="https://ptompalski.github.io/lidRmetrics/articles/Custom_metric_sets.html">vignette</a> to learn more about creating customized metric sets.</p>
 </div>
 <div class="section level2">
 <h2 id="list-of-metrics">List of metrics<a class="anchor" aria-label="anchor" href="#list-of-metrics"></a>
@@ -263,7 +264,8 @@
 <p>See: Lefsky, M. A., Cohen, W. B., Acker, S. A., Parker, G. G., Spies, T. A., &amp; Harding, D. (1999). Lidar Remote Sensing of the Canopy Structure and Biophysical Properties of Douglas-Fir Western Hemlock Forests. Remote Sensing of Environment, 70(3), 339–361. <a href="doi:10.1016/S0034-4257(99)00052-8" class="uri">doi:10.1016/S0034-4257(99)00052-8</a></p>
 </div>
 <div class="section level4">
-<h4 id="metrics-based-on-kernel-density-estimation---metrics_kde">Metrics based on kernel density estimation - [<code>metrics_kde()</code>]<a class="anchor" aria-label="anchor" href="#metrics-based-on-kernel-density-estimation---metrics_kde"></a>
+<h4 id="metrics-based-on-kernel-density-estimation---metrics_kde">Metrics based on kernel density estimation - <code>metrics_kde()</code>
+<a class="anchor" aria-label="anchor" href="#metrics-based-on-kernel-density-estimation---metrics_kde"></a>
 </h4>
 <p>Kernel density estimation (KDE) applied to the distribution of point cloud elevation (Z). KDE allows to create a probability density function (using a Guassian kernel). The density function is then used to detect peaks (function maxima), and attributes of those maxima. Based on similar metric available in Fusion (see references), with significant differences in the list of output statistics as well as the default bandwidth used when estimating kernel density.</p>
 <ul>
@@ -310,6 +312,8 @@
 </h2>
 <p>The processing time required for each function in the package varies, sometimes significantly, depending on the calculations involved. The figure below presents the average processing time for each <code>metrics_*</code> function included in the package. This benchmark was conducted using the “Megaplot.laz” dataset from the <code>lidR</code> package, with iterative calls to the <code><a href="https://rdrr.io/pkg/lidR/man/aggregate.html" class="external-link">pixel_metrics()</a></code> function. It’s important to note that the results of this benchmark are dependent on the workstation’s specifications and should be considered as a relative indication of the processing time required.</p>
 <p><img src="reference/figures/unnamed-chunk-4-1.svg"><!-- --></p>
+<p>The figure below presents the average processing time for each <code>metrics_set*</code> function.</p>
+<p><img src="reference/figures/unnamed-chunk-5-1.svg"><!-- --></p>
 <!-- ```{r, echo=F, message=FALSE} -->
 <!-- library(readxl) -->
 <!-- library(knitr) -->

@@ -57,6 +57,10 @@ m2 <- pixel_metrics(las, ~metrics_set2(Z, ReturnNumber, NumberOfReturns), res = 
 m3 <- pixel_metrics(las, .metrics_set3, res = 20)
 ```
 
+Please take a look at the
+[vignette](https://ptompalski.github.io/lidRmetrics/articles/Custom_metric_sets.html)
+to learn more about creating customized metric sets.
+
 ## List of metrics
 
 #### Simple descriptive statistics - `metrics_basic()`
@@ -197,7 +201,7 @@ and Biophysical Properties of Douglas-Fir Western Hemlock Forests.
 Remote Sensing of Environment, 70(3), 339–361.
 <doi:10.1016/S0034-4257(99)00052-8>
 
-#### Metrics based on kernel density estimation - \[`metrics_kde()`\]
+#### Metrics based on kernel density estimation - `metrics_kde()`
 
 Kernel density estimation (KDE) applied to the distribution of point
 cloud elevation (Z). KDE allows to create a probability density function
@@ -256,6 +260,11 @@ should be considered as a relative indication of the processing time
 required.
 
 ![](man/figures/unnamed-chunk-4-1.svg)<!-- -->
+
+The figure below presents the average processing time for each
+`metrics_set*` function.
+
+![](man/figures/unnamed-chunk-5-1.svg)<!-- -->
 
 <!-- ```{r, echo=F, message=FALSE} -->
 <!-- library(readxl) -->

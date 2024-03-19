@@ -65,6 +65,9 @@ m2 <- pixel_metrics(las, ~metrics_set2(Z, ReturnNumber, NumberOfReturns), res = 
 m3 <- pixel_metrics(las, .metrics_set3, res = 20)
 ```
 
+Please take a look at the [vignette](https://ptompalski.github.io/lidRmetrics/articles/Custom_metric_sets.html) to learn more about creating customized metric sets.
+
+
 ## List of metrics
 
 #### Simple descriptive statistics - `metrics_basic()`
@@ -177,7 +180,7 @@ See:
 Lefsky, M. A., Cohen, W. B., Acker, S. A., Parker, G. G., Spies, T. A., & Harding, D. (1999). Lidar Remote Sensing of the Canopy Structure and Biophysical Properties of Douglas-Fir Western Hemlock Forests. Remote Sensing of Environment, 70(3), 339–361. doi:10.1016/S0034-4257(99)00052-8
 
 
-#### Metrics based on kernel density estimation - [`metrics_kde()`]
+#### Metrics based on kernel density estimation - `metrics_kde()`
 
 Kernel density estimation (KDE) applied to the distribution of point cloud elevation (Z). KDE allows to create a probability density function (using a Guassian kernel). The density function is then used to detect peaks (function maxima), and attributes of those maxima. Based on similar metric available in Fusion (see references), with significant differences in the list of output statistics as well as the default bandwidth used when estimating kernel density.
 
@@ -224,11 +227,30 @@ bm2 <- read_csv("results_benchmark.csv")
 bm2$median <- bench::as_bench_time(bm2$median)
 bm2 <- bm2 %>% mutate(id = fct_rev(factor(id)))
 
+
 ggplot(bm2, aes(id, median)) + 
   geom_point() +
   geom_segment( aes(x=id, xend=id, y=0, yend=median))+ 
   coord_flip()+
-  bench::scale_y_bench_time()+
+  bench::scale_y_bench_time(breaks=c(0.1,0.5,1,2,5,10,20))+
+  theme_light()+
+  theme(axis.title = element_blank(),
+        panel.grid = element_blank())
+
+```
+
+The figure below presents the average processing time for each `metrics_set*` function.
+
+```{r, warning=F, echo=F, message=F, fig.height=2}
+bm3 <- read_csv("results_benchmark_sets.csv")
+bm3$median <- bench::as_bench_time(bm3$median)
+bm3 <- bm3 %>% mutate(id = fct_rev(factor(id)))
+
+ggplot(bm3, aes(id, median)) + 
+  geom_point() +
+  geom_segment( aes(x=id, xend=id, y=0, yend=median))+ 
+  coord_flip()+
+  bench::scale_y_bench_time(breaks=c(0.1,1,2,5,10,15))+
   theme_light()+
   theme(axis.title = element_blank(),
         panel.grid = element_blank())

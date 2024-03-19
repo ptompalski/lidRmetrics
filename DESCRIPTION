@@ -24,6 +24,6 @@ Suggests:
     ForestTools (>= 0.2.5),
     knitr,
     rmarkdown
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 URL: https://ptompalski.github.io/lidRmetrics/

@@ -96,8 +96,8 @@ to conventiently compute most of the metrics commonly used at the same time.
   \code{metrics_Lmoments()}, \code{metrics_lad()}, \code{metrics_interval()}.}
   \item{\code{metrics_set2()}}{Included metrics: All metrics in \code{metrics_set1()}, \code{metrics_echo()}, and \code{metrics_echo2()}.}
   \item{\code{metrics_set3()}}{Included metrics: All metrics in \code{metrics_set2()}, \code{metrics_kde()}, 
-   \code{metrics_HOME()}, \code{metrics_rumple()},  \code{metrics_voxels()}}.
+   \code{metrics_HOME()}, \code{metrics_rumple()},  \code{metrics_voxels()}}
 }
-Currently no set includes \code{metrics_texture()} as the function is considered experimental at this stage.
+Currently no set includes \code{metrics_texture()}.
 }
 \keyword{datasets}

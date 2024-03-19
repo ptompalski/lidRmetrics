@@ -19,23 +19,31 @@ metrics_canopydensity <- function(z, interval_count=10, zmin=NA) { #after Woods 
   
   if (!is.na(zmin)) z <- z[z>zmin]
   
-  zmax <- max(z)
-  zminimum <- min(z)
+  # prepare output 
+  out <- sapply(paste0("zpcum", 1:(interval_count-1)),function(x) NULL)
+  out <- lapply(out, function(x) NA_real_)
   
-  if (zmax <= zminimum) {
-    d <- as.list(rep(0, interval_count-1))
+  if (length(z)!=0) { #check if z is empty
+    
+    zmax <- max(z)
+    zminimum <- min(z)
+    
+    if (zmax <= zminimum) {
+      d <- as.list(rep(0, interval_count-1))
+    }
+    else {
+      breaks <- seq(zminimum, zmax, (zmax - zminimum)/interval_count)
+      d <- findInterval(z[z > zminimum], breaks)
+      d <- lidR:::fast_table(d, interval_count)
+      d <- d/sum(d) * 100
+      d <- cumsum(d)[1:(interval_count-1)]
+      d <- as.list(d)
+    }
+    names(d) <- paste0("zpcum", 1:(interval_count-1))
+    out <- d
   }
-  else {
-    breaks <- seq(zminimum, zmax, (zmax - zminimum)/interval_count)
-    d <- findInterval(z[z > zminimum], breaks)
-    d <- lidR:::fast_table(d, interval_count)
-    d <- d/sum(d) * 100
-    d <- cumsum(d)[1:(interval_count-1)]
-    d <- as.list(d)
-  }
-  names(d) <- paste0("zpcum", 1:(interval_count-1))
   
-  return(d)
+  return(out)
   
 }
 

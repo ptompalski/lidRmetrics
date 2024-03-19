@@ -4,7 +4,7 @@
 # lidRmetrics
 
 Additional point cloud metrics for use with \*\_metric functions in the
-`lidR` package.
+[`lidR`](https://github.com/r-lidar/lidR) package.
 
 The package serves as a companion to the `lidR` package and offers a
 variety of functions for calculating different types of point cloud
@@ -47,10 +47,13 @@ library(lidRmetrics)
 LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
 las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
+# you can run any metrics_* function with cloud_metrics()
 m1 <- cloud_metrics(las, ~metrics_basic(Z))
 
+# or you can run one of the metric sets in pixel_metrics()
 m2 <- pixel_metrics(las, ~metrics_set2(Z, ReturnNumber, NumberOfReturns), res = 20)
 
+# each metrics_* function has a convenient shortcut to run it with default parameters: 
 m3 <- pixel_metrics(las, .metrics_set3, res = 20)
 ```
 

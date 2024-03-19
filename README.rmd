@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
   
 # lidRmetrics
 
-Additional point cloud metrics for use with *_metric functions in the `lidR` package. 
+Additional point cloud metrics for use with *_metric functions in the [`lidR`](https://github.com/r-lidar/lidR) package. 
 
 The package serves as a companion to the `lidR` package and offers a variety of functions for calculating different types of point cloud metrics. These include `metrics_basic()` for basic information about the point cloud, `metrics_percentiles()` for height percentiles, `metrics_percabove()` and `metrics_dispersion()` for characterizing the vertical structure. Additionally, `metrics_echo()` and `metrics_echo2()` provide information on the number and proportion of different return types, while `metrics_interval()` calculates the percentage of points by horizontal layers. More complex metrics such as `metrics_kde` and `metrics_voxels()` are also included. A comprehensive list of metrics and their corresponding functions can be found in the table below.
 
@@ -55,10 +55,13 @@ library(lidRmetrics)
 LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
 las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
 
+# you can run any metrics_* function with cloud_metrics()
 m1 <- cloud_metrics(las, ~metrics_basic(Z))
 
+# or you can run one of the metric sets in pixel_metrics()
 m2 <- pixel_metrics(las, ~metrics_set2(Z, ReturnNumber, NumberOfReturns), res = 20)
 
+# each metrics_* function has a convenient shortcut to run it with default parameters: 
 m3 <- pixel_metrics(las, .metrics_set3, res = 20)
 ```
 

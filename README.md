@@ -63,6 +63,11 @@ to learn more about creating customized metric sets.
 
 ## List of metrics
 
+> **Important:** Is there a specific metric that you feel is **missing**
+> from the package? If you have any suggestions or know of a metric
+> you’d like to see included, please let me know! You can submit an
+> issue or create a pull request on the repository.
+
 #### Simple descriptive statistics - `metrics_basic()`
 
 - `n` - total number of returns

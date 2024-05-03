@@ -47,7 +47,7 @@ metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
   vn <- NA_integer_
   vFRall <- vFRcanopy <- NA_real_
   
-  if (length(z) > 2) {
+  # if (length(z) > 2) {
     
     vox <- lidRmetrics:::create_voxels(x = x, y = y, z = z, vox_size = vox_size, zmin = zmin)
     
@@ -76,12 +76,12 @@ metrics_voxels <- function(x, y, z, vox_size=1, zmin = NA) {
       
       mlefsky <- lidRmetrics:::metrics_lefsky(x = vox$X, y = vox$Y, z = vox$Z, n=vox$n)
       
-    } else {
-      
-      mhist <- lidRmetrics:::metrics_voxstructure(z = NA) #this is temporary fix
-      mlefsky <- lidRmetrics:::metrics_lefsky(x = NA, y = NA, z = NA, n=NA) #this is temporary fix
-      
-    }
+    # } else {
+    #   
+    #   mhist <- lidRmetrics:::metrics_voxstructure(z = NA) #this is temporary fix
+    #   mlefsky <- lidRmetrics:::metrics_lefsky(x = NA, y = NA, z = NA, n=NA) #this is temporary fix
+    #   
+    # }
     
     
     output = list(vn = vn,

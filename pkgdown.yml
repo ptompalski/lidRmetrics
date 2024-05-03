@@ -1,9 +1,9 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   Custom_metric_sets: Custom_metric_sets.html
-last_built: 2024-04-05T16:33Z
+last_built: 2024-05-03T18:40Z
 urls:
   reference: https://ptompalski.github.io/lidRmetrics/reference
   article: https://ptompalski.github.io/lidRmetrics/articles

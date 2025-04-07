@@ -1,6 +1,6 @@
 #' Canopy volume classes
 #' 
-#' Canopy volume classes based on Lefsky et al 1999 (see references), modified. A voxel rerprenetation of a forest stand
+#' Canopy volume classes based on Lefsky et al 1999 (see references), modified. A voxel representation of a forest stand
 #' is divided into four classes including: open gap space, closed gap space, euphotic zone, and oligophotic zone. 
 #' This function is meant to be used within metrics_voxels.
 #' 
@@ -28,12 +28,14 @@ metrics_lefsky <- function(x, y, z, n) {
   
   vox_stats <- dvox %>% 
     dplyr::left_join(dvox_top, by = c("X", "Y")) %>%
+    dplyr::filter(!is.na(Zmax)) %>%
     dplyr::mutate(class = 
                     dplyr::case_when(
-               Z > Zmax ~ "OpenGapSpace",                  #empty voxels above canopy
+               Z > Zmax & is.na(n) ~ "OpenGapSpace",       #empty voxels above canopy
                Z < Zmax & is.na(n) ~ "ClosedGapSpace",     #empty voxels below canopy
-               Z >= 0.65 * Zmax ~ "Euphotic",              #filled voxels in the top 0.65 portion of the canopy
-               TRUE ~ "Oligophotic"                        #filled voxels in the lower section of the canopy
+               Z >= 0.65 * Zmax & !is.na(n) ~ "Euphotic",              #filled voxels in the top 0.65 portion of the canopy
+               Z < 0.65 * Zmax & !is.na(n) ~ "Oligophotic"             #filled voxels in the lower section of the canopy
+               # TRUE ~ "Oligophotic"                        
              )) %>% 
     dplyr::group_by(class) %>%
     dplyr::count() %>%

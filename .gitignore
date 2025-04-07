@@ -39,3 +39,5 @@ vignettes/*.pdf
 .Renviron
 inst/doc
 docs
+
+benchmarking.R

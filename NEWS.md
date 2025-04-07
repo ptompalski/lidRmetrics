@@ -1,3 +1,13 @@
+# lidRmetrics 0.1.4
+
+- fixed a bug in `metrics_lefsky()` that caused empty voxels to be classified as "Oligophotic" (#25)
+
+
+# lidRmetrics 0.1.3
+
+- fixed a bug in `metrics_set3()`
+
+
 # lidRmetrics 0.1.2
 
 ### Breaking changes

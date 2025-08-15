@@ -45,7 +45,12 @@ intervals.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">metrics_interval</span><span class="op">(</span><span class="va">z</span>, zintervals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.15</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>, zmin <span class="op">=</span> <span class="cn">NA_real_</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">metrics_interval</span><span class="op">(</span></span>
+<span>  <span class="va">z</span>,</span>
+<span>  zintervals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.15</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span>,</span>
+<span>  zmin <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  right <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">.metrics_interval</span></span></code></pre></div>
     </div>
@@ -76,6 +81,11 @@ which includes all values \(\ge\) the last breakpoint.</p></dd>
 <dt id="arg-zmin">zmin<a class="anchor" aria-label="anchor" href="#arg-zmin"></a></dt>
 <dd><p>Optional numeric scalar. If provided, values are filtered as
 <code>z &gt; zmin</code> before binning (strictly greater).</p></dd>
+
+
+<dt id="arg-right">right<a class="anchor" aria-label="anchor" href="#arg-right"></a></dt>
+<dd><p>Logical, default `FALSE`. Passed to `hist()` to control whether
+intervals are right-closed (`TRUE`) or right-open (`FALSE`).</p></dd>
 
 </dl></div>
     <div class="section level2">

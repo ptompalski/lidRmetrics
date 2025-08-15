@@ -18,6 +18,8 @@
 #'   which includes all values \eqn{\ge} the last breakpoint.
 #' @param zmin Optional numeric scalar. If provided, values are filtered as
 #'   \code{z > zmin} before binning (strictly greater).
+#' @param right Logical, default `FALSE`. Passed to `hist()` to control whether
+#'   intervals are right-closed (`TRUE`) or right-open (`FALSE`).
 #'
 #' @details
 #' Internally, counts are computed with:
@@ -51,7 +53,8 @@
 metrics_interval <- function(
     z,
     zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
-    zmin = NA_real_
+    zmin = NA_real_,
+    right = FALSE
 ) {
   # --- input checks ---
   stopifnot(is.numeric(z), is.numeric(zintervals))
@@ -90,7 +93,7 @@ metrics_interval <- function(
     z,
     breaks = brks,
     plot = FALSE,
-    right = FALSE,
+    right = right,
     include.lowest = FALSE
   )
   

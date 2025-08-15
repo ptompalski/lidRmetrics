@@ -9,7 +9,12 @@
 An object of class \code{formula} of length 2.
 }
 \usage{
-metrics_interval(z, zintervals = c(0, 0.15, 2, 5, 10, 20, 30), zmin = NA_real_)
+metrics_interval(
+  z,
+  zintervals = c(0, 0.15, 2, 5, 10, 20, 30),
+  zmin = NA_real_,
+  right = FALSE
+)
 
 .metrics_interval
 }
@@ -30,6 +35,9 @@ which includes all values \eqn{\ge} the last breakpoint.}
 
 \item{zmin}{Optional numeric scalar. If provided, values are filtered as
 \code{z > zmin} before binning (strictly greater).}
+
+\item{right}{Logical, default `FALSE`. Passed to `hist()` to control whether
+intervals are right-closed (`TRUE`) or right-open (`FALSE`).}
 }
 \value{
 A named list of percentages (numeric) for each interval.

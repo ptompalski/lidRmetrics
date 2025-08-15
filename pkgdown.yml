@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   Custom_metric_sets: Custom_metric_sets.html
-last_built: 2025-08-15T18:32Z
+last_built: 2025-08-15T18:35Z
 urls:
   reference: https://ptompalski.github.io/lidRmetrics/reference
   article: https://ptompalski.github.io/lidRmetrics/articles

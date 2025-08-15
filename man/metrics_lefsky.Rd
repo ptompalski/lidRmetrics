@@ -15,7 +15,7 @@ metrics_lefsky(x, y, z, n)
 Percentage of voxels in each class
 }
 \description{
-Canopy volume classes based on Lefsky et al 1999 (see references), modified. A voxel rerprenetation of a forest stand
+Canopy volume classes based on Lefsky et al 1999 (see references), modified. A voxel representation of a forest stand
 is divided into four classes including: open gap space, closed gap space, euphotic zone, and oligophotic zone. 
 This function is meant to be used within metrics_voxels.
 }

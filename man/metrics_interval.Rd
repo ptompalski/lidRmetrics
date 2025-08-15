@@ -9,22 +9,52 @@
 An object of class \code{formula} of length 2.
 }
 \usage{
-metrics_interval(z, zintervals = c(0, 0.15, 2, 5, 10, 20, 30), zmin = NA)
+metrics_interval(z, zintervals = c(0, 0.15, 2, 5, 10, 20, 30), zmin = NA_real_)
 
 .metrics_interval
 }
 \arguments{
-\item{z}{Z coordinate of the point cloud (point heights)}
+\item{z}{A numeric vector of heights (e.g., `Z` from a LAS object).}
 
-\item{zintervals}{Numeric. Height intervals}
+\item{zintervals}{Numeric, strictly increasing. Interior breakpoints for
+height intervals (e.g., \code{c(0, 0.15, 2, 5, 10, 20, 30)}).
+The full set of breaks used is \code{c(-Inf, zintervals, Inf)}, producing:
+\itemize{
+  \item a "below" bin: \code{(-Inf, zintervals[1])}
+  \item interior bins: \code{[zintervals[i], zintervals[i+1])}
+  \item an "above" bin: \code{[zintervals[length(zintervals)], Inf)}
+}
+With \code{right = FALSE} (used internally), each bin includes its left
+boundary and excludes its right boundary, except the open-ended top bin
+which includes all values \eqn{\ge} the last breakpoint.}
 
-\item{zmin}{numeric. Minimum \code{z} value. If set, \code{z} values (heights) below are ignored in calculations.}
+\item{zmin}{Optional numeric scalar. If provided, values are filtered as
+\code{z > zmin} before binning (strictly greater).}
 }
 \value{
-A list. Percentage of points within each height interval
+A named list of percentages (numeric) for each interval.
 }
 \description{
-Percentage of points calculated for a set of horizontal layers.
+Compute the percentage of points falling within user-defined height
+intervals.
+}
+\details{
+Internally, counts are computed with:
+\preformatted{
+  breaks <- c(-Inf, zintervals, Inf)
+  hist(z, breaks = breaks, plot = FALSE, right = FALSE)
+}
+Using `right = FALSE` enforces left-closed, right-open bins (`[a,b)`),
+which guarantees, for example, that `0` is included in `[0, next)` rather
+than the "below" bin. Proportions are the counts divided by the number of
+points remaining after optional `zmin` filtering, multiplied by 100.
+
+Output names follow:
+\itemize{
+  \item \code{pz_below_<first>} for the below bin
+  \item \code{pz_<a>-<b>} for each interior \code{[a,b)} bin
+  \item \code{pz_above_<last>} for the above bin
+}
 }
 \examples{
 library(lidR)

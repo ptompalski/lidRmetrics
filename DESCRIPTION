@@ -1,6 +1,6 @@
 Package: lidRmetrics
 Title: Point cloud metrics for the lidR package.
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: c(
     person("Piotr", "Tompalski", email = "piotr.tompalski@gmail.com", role = c("aut", "cre")),
     person("Jean-Romain", "Roussel", email = "", role = c("ctb")),

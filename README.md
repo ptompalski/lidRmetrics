@@ -61,6 +61,18 @@ Please take a look at the
 [vignette](https://ptompalski.github.io/lidRmetrics/articles/Custom_metric_sets.html)
 to learn more about creating customized metric sets.
 
+## Citation
+
+To cite `lidRmetrics`, use:
+
+``` r
+citation("lidRmetrics")
+```
+
+Tompalski, P. (2026). *lidRmetrics: Additional metric functions for the
+lidR package*. R package version 0.1.5.
+<https://github.com/ptompalski/lidRmetrics>
+
 ## List of metrics
 
 > **Important:** Is there a specific metric that you feel is **missing**

@@ -1,0 +1,14 @@
+bibentry(
+  bibtype = "Manual",
+  title = "lidRmetrics: Additional metric functions for the lidR package",
+  author = person("Piotr", "Tompalski"),
+  year = "2026",
+  note = paste("R package version", packageVersion("lidRmetrics")),
+  url = "https://github.com/ptompalski/lidRmetrics",
+  textVersion = paste0(
+    "Tompalski, P. (2026). ",
+    "lidRmetrics: Additional metric functions for the lidR package. ",
+    "R package version ", packageVersion("lidRmetrics"), ". ",
+    "https://github.com/ptompalski/lidRmetrics"
+  )
+)

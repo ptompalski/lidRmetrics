@@ -28,7 +28,8 @@ You can install the most recent version of the package by executing the
 code below:
 
 ``` r
-devtools::install_github("ptompalski/lidRmetrics")
+install.packages("pak") # If not already installed
+pak::pak("ptompalski/lidRmetrics")
 library(lidRmetrics)
 ```
 

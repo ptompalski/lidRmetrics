@@ -1,0 +1,63 @@
+# Number of points by return number
+
+Calculates the number of points by each return number.
+
+## Usage
+
+``` r
+metrics_echo2(ReturnNumber, KeepReturns = c(1, 2, 3, 4), z = NULL, zmin = NA)
+
+.metrics_echo2
+```
+
+## Format
+
+An object of class `formula` of length 2.
+
+## Arguments
+
+- ReturnNumber:
+
+  return number
+
+- KeepReturns:
+
+  numeric. Return numbers to include. Allows to either limit the output
+  to particular return numbers of interest (e.g. c(1, 3)), or extend the
+  output to always include the same return numbers (useful when
+  processing multiple datasets with different return numbers). See
+  examples. Default c(1,2,3,4) - return numbers 1 - 4 are included.
+
+- z:
+
+  Z coordinate of the point cloud (point heights)
+
+- zmin:
+
+  numeric. Minimum `z` value. If set, `z` values (heights) below are
+  ignored in calculations.
+
+## Value
+
+A list. Number of points by each return number.
+
+## Examples
+
+``` r
+library(lidR)
+library(lidRmetrics)
+LASfile <- system.file("extdata", "Megaplot.laz", package="lidR")
+las <- readLAS(LASfile, select = "*", filter = "-keep_random_fraction 0.5")
+#> 
+                                                                                
+
+
+m1 <- cloud_metrics(las, ~metrics_echo2(ReturnNumber=ReturnNumber))
+
+#indlude only Returns 1 and 3
+m2 <- pixel_metrics(las, ~metrics_echo2(ReturnNumber=ReturnNumber, KeepReturns=c(1,3)), res = 20)
+
+#include returns 1-5. In this example the highest return number is 4 but the output will still include counts for return number 5 (will be NA)
+m3 <- pixel_metrics(las, ~metrics_echo2(ReturnNumber=ReturnNumber, MaxReturnNumber=1:5, z=Z, zmin=2), res = 20)
+#> Error in metrics_echo2(ReturnNumber = ReturnNumber, MaxReturnNumber = 1:5,     z = Z, zmin = 2): unused argument (MaxReturnNumber = 1:5)
+```
